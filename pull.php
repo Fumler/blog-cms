@@ -25,7 +25,7 @@ if (isset($_GET['update'])) {
 	if ($pass === $check) {
 
 		// what does the pull, don't change the backticks (`) as it tells PHP to execute a shell command
-		`git pull`;
+		`git pull --rebase`;
 		echo "Pass is okay";
 
 		// Email to say it's successful
