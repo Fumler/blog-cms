@@ -1,1 +1,7 @@
-<?php `git pull`;
+<?php
+`git pull`;
+$pull = `git pull`;
+echo $pull;
+
+
+?>
