@@ -25,6 +25,7 @@ if (isset($_GET['update'])) {
 	if ($pass === $check) {
 
 		// what does the pull, don't change the backticks (`) as it tells PHP to execute a shell command
+		`cd /home/fumler/public/basketak.net/public/blog-cms`
 		`git pull --rebase`;
 		echo "Pass is okay";
 
