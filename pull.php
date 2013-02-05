@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 'On');
 
 $projectName	= 'blog-cms'; // Your project name
 $email			= 'fredrik.fumler@gmail.com'; // Email address you want pull notifcations to go to
@@ -25,6 +26,7 @@ if (isset($_GET['update'])) {
 
 		// what does the pull, don't change the backticks (`) as it tells PHP to execute a shell command
 		`git pull`;
+		echo "Pass is okay";
 
 		// Email to say it's successful
 		mail($email, '['.$projectName.'] `GIT PULL` successful', $msg);
