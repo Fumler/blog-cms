@@ -4,8 +4,8 @@ $projectName	= 'blog-cms'; // Your project name
 $email			= 'fredrik.fumler@gmail.com'; // Email address you want pull notifcations to go to
 
 // Copy and paste the results from `passgen` here
-$pass = '';
-$salt = '';
+$pass = '61d5df9c5c71b1e2e0a000fad2b66f41';
+$salt = '1984595830';
 // End copy and paste
 
 
