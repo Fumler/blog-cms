@@ -10,6 +10,11 @@
         <meta name="keywords" content="cms blog content managment system blogging">
         <title>Blog CMS</title>
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <style>
+            body {
+                padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+            }
+        </style>
         <link rel="stylesheet" type="text/css" href="css/dark.css" media="all">
     </head>
     <body>
