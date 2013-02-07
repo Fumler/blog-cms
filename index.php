@@ -28,7 +28,7 @@ $id = isset($_GET['id']) ? $_GET['id'] : 'home';
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="/">Bloggyderp</a>
+                    <a class="brand" href="/blog-cms">Bloggyderp</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
                             <li class="<?php echo ($id == 'home' ? 'active' : '')?>"> <a href="?id=home">Home</a> </li>
