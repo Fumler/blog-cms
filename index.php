@@ -1,6 +1,4 @@
-<?php
-
-?>
+<?php $page = basename($_SERVER['SCRIPT_NAME']); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,9 +27,10 @@
                     <a class="brand" href="#">Bloggyderp</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li class="active"><a href="#">Home</a></li>
-                            <li><a href="#about">Blogs</a></li>
-                            <li><a href="#contact">Contact</a></li>
+                            <li <?php if ($page == 'home.php') { ?>class="active"<?php } ?>><a href="?id=home">Home</a></li>
+                            <li <?php if ($page == 'about.php') { ?>class="active"<?php } ?>><a href="?id=about">About
+                            <li <?php if ($page == 'blogs.php') { ?>class="active"<?php } ?>><a href="?id=blogs">Blogs</a></li>
+                            <li <?php if ($page == 'contact.php') { ?>class="active"<?php } ?>><a href="?id=contact">Contact</a></li>
                         </ul>
                     </div>
                 </div>
@@ -40,8 +39,15 @@
 
     <div class="container">
 
-      <h1>Hello world!</h1>
-      <p>I said hello.</p>
+        <?php
+        switch($id) {
+            case"home": include('pages/home.php'); break;
+            case"about":include('pages/about.php'); break;
+            case"blogs":include('pages/blogs.php'); break;
+            case"contact":include('pages/contact.php'); break;
+            default: include('home.php'); break;
+        }
+        ?>
 
     </div>
         <script src="http://code.jquery.com/jquery-latest.js"></script>
