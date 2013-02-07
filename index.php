@@ -1,5 +1,6 @@
-
-
+<?php
+$page = basename($_SERVER['SCRIPT_FILENAME'];
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
