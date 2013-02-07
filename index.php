@@ -33,9 +33,10 @@
                         <ul class='nav nav-collapse collapse pull-right'>
                             <li class="">
                                 <form class="navbar-search">
+                                    <i class="icon-user icon-white"></i>
                                     <input type="text" class="span2" placeholder="Username">
                                     <input type="text" class="span2" placeholder="Password">
-                                    <input type="submit" value="Login" class="btn"/>
+                                    <input type="submit" value="Login" class="btn btn-primary"/>
                                 </form>
                             </li>
                         </ul>
