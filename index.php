@@ -1,4 +1,5 @@
 <?php
+include('classes/user1.class.php');
 $id = isset($_GET['id']) ? $_GET['id'] : 'home';
 ?>
 <!DOCTYPE html>
@@ -9,6 +10,8 @@ $id = isset($_GET['id']) ? $_GET['id'] : 'home';
         <meta name="keywords" content="cms blog content managment system blogging">
         <title>Blog CMS</title>
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/bootstrap-responsive.css" rel="stylesheet">
         <style>
             body {
                 padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
