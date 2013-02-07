@@ -1,3 +1,6 @@
+<?php
+$id = isset($_GET['id']) ? $_GET['id'] : 'home';
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -25,10 +28,10 @@
                     <a class="brand" href="/">Bloggyderp</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li class="<?php echo ($_GET['id'] == 'home' ? 'active' : '')?>"> <a href="?id=home">Home</a> </li>
-                            <li class="<?php echo ($_GET['id'] == "about" ? "active" : "")?>"><a href="?id=about">About
-                            <li class="<?php echo ($_GET['id'] == "blogs" ? "active" : "")?>"><a href="?id=blogs">Blogs</a></li>
-                            <li class="<?php echo ($_GET['id'] == "contact" ? "active" : "")?>"><a href="?id=contact">Contact</a></li>
+                            <li class="<?php echo ($id == 'home' ? 'active' : '')?>"> <a href="?id=home">Home</a> </li>
+                            <li class="<?php echo ($id == "about" ? "active" : "")?>"><a href="?id=about">About
+                            <li class="<?php echo ($id == "blogs" ? "active" : "")?>"><a href="?id=blogs">Blogs</a></li>
+                            <li class="<?php echo ($id == "contact" ? "active" : "")?>"><a href="?id=contact">Contact</a></li>
                         </ul>
                         <ul class='nav nav-collapse collapse pull-right'>
                             <li class="">
@@ -48,7 +51,7 @@
     <div class="container">
 
         <?php
-        switch($_GET['id']) {
+        switch($id) {
             case "home"     : include('pages/home.php');       break;
             case "about"    : include('pages/about.php');      break;
             case "blogs"    : include('pages/blogs.php');      break;
