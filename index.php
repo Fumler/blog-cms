@@ -11,7 +11,7 @@
                 padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
             }
         </style>
-        <link rel="stylesheet" type="text/css" href="css/dark.css" media="all">
+        <link rel="stylesheet" type="text/css" href="css/custom.css" media="all">
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top">
@@ -31,11 +31,13 @@
                             <li class="<?php echo ($_GET['id'] == "contact" ? "active" : "")?>"><a href="?id=contact">Contact</a></li>
                         </ul>
                         <ul class='nav nav-collapse collapse pull-right'>
-                            <li class=""><form class="navbar-search">
-                            <input type="text" class="span2" placeholder="Login">
-                            <input type="text" class="span2" placeholder="Password">
-                            <input type="submit" value="Login" class="btn"/>
-                            </form></li>
+                            <li class="">
+                                <form class="navbar-search">
+                                    <input type="text" class="span2" placeholder="Username">
+                                    <input type="text" class="span2" placeholder="Password">
+                                    <input type="submit" value="Login" class="btn"/>
+                                </form>
+                            </li>
                         </ul>
                     </div>
                 </div>

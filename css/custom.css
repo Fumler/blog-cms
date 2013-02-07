@@ -1,0 +1,18 @@
+/* Make login button fit */
+
+form.login {
+    border: 1px solid red;
+}
+
+form.login input {
+    height: 14px;
+    width: 140px;
+    background: #F5F5F5;
+    border-radius: 2px;
+}
+
+@media (min-width:768px) {
+.navbar-search .btn {margin:-9px 0 0 0;}
+}
+
+/* Make login button fit -- END --*/
