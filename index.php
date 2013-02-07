@@ -22,13 +22,20 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="#">Bloggyderp</a>
+                    <a class="brand" href="/">Bloggyderp</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
                             <li class="<?php echo ($_GET['id'] == 'home' ? 'active' : '')?>"> <a href="?id=home">Home</a> </li>
                             <li class="<?php echo ($_GET['id'] == "about" ? "active" : "")?>"><a href="?id=about">About
                             <li class="<?php echo ($_GET['id'] == "blogs" ? "active" : "")?>"><a href="?id=blogs">Blogs</a></li>
                             <li class="<?php echo ($_GET['id'] == "contact" ? "active" : "")?>"><a href="?id=contact">Contact</a></li>
+                        </ul>
+                        <ul class='nav nav-collapse collapse pull-right'>
+                            <li class=""><form class="navbar-search">
+                            <input type="text" class="span2" placeholder="Login">
+                            <input type="text" class="span2" placeholder="Password">
+                            <input type="submit" value="Login" class="btn"/>
+                            </form></li>
                         </ul>
                     </div>
                 </div>
