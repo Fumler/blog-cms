@@ -1,6 +1,3 @@
-<?php
-$page = basename($_SERVER['SCRIPT_FILENAME'];
-?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -28,10 +25,10 @@ $page = basename($_SERVER['SCRIPT_FILENAME'];
                     <a class="brand" href="#">Bloggyderp</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li class="<?php echo ($page == 'home' ? 'active' : '')?>"> <a href="?id=home">Home</a> </li>
-                            <li class="<?php echo ($page == "about" ? "active" : "")?>"><a href="?id=about">About
-                            <li class="<?php echo ($page == "blogs" ? "active" : "")?>"><a href="?id=blogs">Blogs</a></li>
-                            <li class="<?php echo ($page == "contact" ? "active" : "")?>"><a href="?id=contact">Contact</a></li>
+                            <li class="<?php echo ($_GET['id'] == 'home' ? 'active' : '')?>"> <a href="?id=home">Home</a> </li>
+                            <li class="<?php echo ($_GET['id'] == "about" ? "active" : "")?>"><a href="?id=about">About
+                            <li class="<?php echo ($_GET['id'] == "blogs" ? "active" : "")?>"><a href="?id=blogs">Blogs</a></li>
+                            <li class="<?php echo ($_GET['id'] == "contact" ? "active" : "")?>"><a href="?id=contact">Contact</a></li>
                         </ul>
                     </div>
                 </div>
