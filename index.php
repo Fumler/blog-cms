@@ -1,4 +1,4 @@
-<?php $page = basename($_SERVER['SCRIPT_NAME']); ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,10 +27,10 @@
                     <a class="brand" href="#">Bloggyderp</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li <?php if ($page == 'pages/home.php') { ?>class="active"<?php } ?>><a href="?id=home">Home</a></li>
-                            <li <?php if ($page == 'pages/about.php') { ?>class="active"<?php } ?>><a href="?id=about">About
-                            <li <?php if ($page == 'pages/blogs.php') { ?>class="active"<?php } ?>><a href="?id=blogs">Blogs</a></li>
-                            <li <?php if ($page == 'pages/contact.php') { ?>class="active"<?php } ?>><a href="?id=contact">Contact</a></li>
+                            <li class="<?php echo ($page == "home" ? "active" : "")?>"> <a href="?id=home">Home</a> </li>
+                            <li class="<?php echo ($page == "about" ? "active" : "")?>"><a href="?id=about">About
+                            <li class="<?php echo ($page == "blogs" ? "active" : "")?>"><a href="?id=blogs">Blogs</a></li>
+                            <li class="<?php echo ($page == "contact" ? "active" : "")?>"><a href="?id=contact">Contact</a></li>
                         </ul>
                     </div>
                 </div>
