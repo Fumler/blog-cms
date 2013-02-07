@@ -27,10 +27,10 @@
                     <a class="brand" href="#">Bloggyderp</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li <?php if ($page == 'home.php') { ?>class="active"<?php } ?>><a href="?id=home">Home</a></li>
-                            <li <?php if ($page == 'about.php') { ?>class="active"<?php } ?>><a href="?id=about">About
-                            <li <?php if ($page == 'blogs.php') { ?>class="active"<?php } ?>><a href="?id=blogs">Blogs</a></li>
-                            <li <?php if ($page == 'contact.php') { ?>class="active"<?php } ?>><a href="?id=contact">Contact</a></li>
+                            <li <?php if ($page == '..pages/home.php') { ?>class="active"<?php } ?>><a href="?id=home">Home</a></li>
+                            <li <?php if ($page == '..pages/about.php') { ?>class="active"<?php } ?>><a href="?id=about">About
+                            <li <?php if ($page == '..pages/blogs.php') { ?>class="active"<?php } ?>><a href="?id=blogs">Blogs</a></li>
+                            <li <?php if ($page == '..pages/contact.php') { ?>class="active"<?php } ?>><a href="?id=contact">Contact</a></li>
                         </ul>
                     </div>
                 </div>
@@ -41,11 +41,11 @@
 
         <?php
         switch($id) {
-            case"home": include('pages/home.php'); break;
-            case"about":include('pages/about.php'); break;
-            case"blogs":include('pages/blogs.php'); break;
-            case"contact":include('pages/contact.php'); break;
-            default: include('home.php'); break;
+            case"home": include('..pages/home.php'); break;
+            case"about":include('..pages/about.php'); break;
+            case"blogs":include('..pages/blogs.php'); break;
+            case"contact":include('..pages/contact.php'); break;
+            default: include('..pages/home.php'); break;
         }
         ?>
 
