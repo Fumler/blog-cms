@@ -14,4 +14,3 @@ TODO
 - Fix mobileversion
 - Frontpage
 - hits on posts, and blog
-- 
