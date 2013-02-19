@@ -13,7 +13,7 @@ class User {
 	var $uname = '';											// User name for currently logged in user
 	var $uid = -1;												// User ID for currently logged in user
 	var $error = '';											// Error in login
-	var $db;													// Handle to the database object
+	var $db = new PDO('mysql:host=localhost;dbname=blog', $_SERVER['DBUSER'], $_SERVER['DBPASS']);		// Handle to the database object
 
 	/**
 	 * Constructor for the class, handles login/logout and carry forward of login status.
