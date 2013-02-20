@@ -1,5 +1,11 @@
 <?php
+// vars
+$db = new PDO('localhost', 'dbname=oblig;charset=UTF8', $_SERVER['DBUSER'], $_SERVER['DBPASS']);
+
+// includes
 include('classes/user1.class.php');
+
+// if id has a value, get it, if not set to home
 $id = isset($_GET['id']) ? $_GET['id'] : 'home';
 ?>
 <!DOCTYPE html>
