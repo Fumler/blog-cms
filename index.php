@@ -1,4 +1,5 @@
 <?php
+session_start();
 // vars
 try {
 $db = new PDO('mysql:host=localhost;dbname=blog;charset=UTF8', $_SERVER['DBUSER'], $_SERVER['DBPASS']);
