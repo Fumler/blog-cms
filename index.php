@@ -1,9 +1,14 @@
 <?php
 // vars
+try {
 $db = new PDO('mysql:host=localhost;dbname=blog;charset=UTF8', $_SERVER['DBUSER'], $_SERVER['DBPASS']);
+} catch (PDOException $e) {
+    print "Error!: " . $e->getMessage() . "<br/>";
+    die();
+}
 
 // includes
-include('classes/user1.class.php');
+require_once('classes/user1.class.php');
 
 // if id has a value, get it, if not set to home
 $id = isset($_GET['id']) ? $_GET['id'] : 'home';
@@ -42,7 +47,7 @@ $id = isset($_GET['id']) ? $_GET['id'] : 'home';
                         </ul>
                         <ul class='nav nav-collapse collapse pull-right'>
                             <li class="">
-                                <form method="post" class="navbar-search">
+                                <?php echo "<form method='post' action='index.php' class='navbar-search'>"; ?>
                                     <?php
                                         if($user->loggedOn()) {
                                             echo '<p>You are logged in as ' . $user->getName() . '</p>';
@@ -51,7 +56,7 @@ $id = isset($_GET['id']) ? $_GET['id'] : 'home';
                                     ?>
                                     <i class="icon-user icon-white"></i>
                                     <input name="uname" type="text" class="span2" placeholder="Username">
-                                    <input name="pwd" type="text" class="span2" placeholder="Password">
+                                    <input name="pwd" type="password" class="span2" placeholder="Password">
                                     <input type="submit" value="Login" class="btn btn-primary"/>
                                     <?php } ?>
                                 </form>

@@ -1,5 +1,9 @@
 <?php $page = "about";?>
 
-<h1>Hello world!</h1>
-<p>I said hello.</p>
-<p>This is about</p>
+<h1>Login form</h1>
+<?php
+
+$passwordderp = "1"."test".SALT;
+$passwordsalted = hash_hmac('sha512', $passwordderp, SITEKEY);
+echo $passwordsalted;
+?>
