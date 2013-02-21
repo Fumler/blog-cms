@@ -14,6 +14,14 @@ require_once('classes/user1.class.php');
 // if id has a value, get it, if not set to home
 $id = isset($_GET['id']) ? $_GET['id'] : 'home';
 
+// logout
+if(isset($_GET['logout'])) {
+    session_unset();
+    session_destroy();
+
+    header('Location: '.$_SERVER['PHP_SELF']);
+}
+
 
 // checks user login
 ?>
@@ -46,22 +54,30 @@ $id = isset($_GET['id']) ? $_GET['id'] : 'home';
                             <li class="<?php echo ($id == "blogs" ? "active" : "")?>"><a href="?id=blogs">Blogs</a></li>
                             <li class="<?php echo ($id == "contact" ? "active" : "")?>"><a href="?id=contact">Contact</a></li>
                         </ul>
-                        <ul class='nav nav-collapse collapse pull-right'>
-                            <li class="">
-                                <?php echo "<form method='post' action='index.php' class='navbar-search'>"; ?>
-                                    <?php
-                                        if($user->loggedOn()) {
-                                            echo '<p>You are logged in as ' . $user->getName() . '</p>';
-                                        }
-                                        else {
-                                    ?>
-                                    <i class="icon-user icon-white"></i>
-                                    <input name="uname" type="text" class="span2" placeholder="Username">
-                                    <input name="pwd" type="password" class="span2" placeholder="Password">
-                                    <input type="submit" value="Login" class="btn btn-primary"/>
-                                    <?php } ?>
+                        <ul class="nav pull-right">
+                            <?php if($user->loggedOn()) { ?>
+                                <li><a href="?id=profile">Profile</a></li>
+                                <li class="divider-vertical"></li>
+                                <li><a href="?id=settings">Settings</a></li>
+                                <li class="divider-vertical"></li>
+                                <li><a href="?logout">Log out</a></li>
+                            <?php } else { ?>
+                                <li><a href="?id=signup">Sign Up</a></li>
+                                <li class="divider-vertical"></li>
+                                <li class="dropdown">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
+                                <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+                                <form action="index.php" method="post" accept-charset="UTF-8">
+                                    <input style="margin-bottom: 15px;" type="text" name="uname" size="30" placeholder="Username" />
+                                    <input style="margin-bottom: 15px;" type="password" name="pwd" size="30" placeholder="Password" />
+                                    <input id="user_remember_me" style="float: left; margin-right: 10px;" type="checkbox" name="remember" value="1" />
+                                    <label class="string optional" for="user_remember_me">Remember me</label>
+
+                                    <input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" value="Sign In" />
                                 </form>
-                            </li>
+                                </div>
+                                </li>
+                                <?php } ?>
                         </ul>
                     </div>
                 </div>
@@ -76,6 +92,8 @@ $id = isset($_GET['id']) ? $_GET['id'] : 'home';
             case "about"    : include('pages/about.php');      break;
             case "blogs"    : include('pages/blogs.php');      break;
             case "contact"  : include('pages/contact.php');    break;
+            case "settings" : include('pages/settings.php');   break;
+            case "profile"  : include('pages/profile.php');    break;
             default         : include('pages/home.php');       break;
         }
         ?>
