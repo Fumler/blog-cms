@@ -85,6 +85,11 @@ if(isset($_GET['logout'])) {
         </div>
 
     <div class="container">
+        <?php if($user->error) {?>
+            <div class="alert">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <?php $user->error; ?>
+    </div> <?php } ?>
 
         <?php
         switch($id) {

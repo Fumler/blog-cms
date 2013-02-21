@@ -50,7 +50,7 @@ class User {
 					return;
 				}
 			}
-			$this->error = 'Ukjent brukernavn/passord';			// Display error message on login form
+			$this->error = 'Oh snap! Your username or password seems to be wrong, try again.';			// Display error message on login form
 		} else if (isset ($_POST['logout'])) {					// Log out
 			unset ($_SESSION['uid']);
 		} else if (isset ($_SESSION['uid'])) {					// A user is logged in, find the username
