@@ -22,6 +22,10 @@ if(isset($_GET['logout'])) {
     header('Location: '.$_SERVER['PHP_SELF']);
 }
 
+// register a new user
+if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfirmPwd'])) {
+    $user->newUser($_POST['regUser'], $_POST['regPwd']);
+}
 
 // checks user login
 ?>
@@ -50,30 +54,55 @@ if(isset($_GET['logout'])) {
                     <div class="nav-collapse collapse">
                         <ul class="nav">
                             <li class="<?php echo ($id == 'home' ? 'active' : '')?>"> <a href="?id=home">Home</a> </li>
-                            <li class="<?php echo ($id == "about" ? "active" : "")?>"><a href="?id=about">About
+                            <li class="divider-vertical"></li>
+                            <li class="<?php echo ($id == "about" ? "active" : "")?>"><a href="?id=about">About</a></li>
+                            <li class="divider-vertical"></li>
                             <li class="<?php echo ($id == "blogs" ? "active" : "")?>"><a href="?id=blogs">Blogs</a></li>
+                            <li class="divider-vertical"></li>
                             <li class="<?php echo ($id == "contact" ? "active" : "")?>"><a href="?id=contact">Contact</a></li>
                         </ul>
                         <ul class="nav pull-right">
                             <?php if($user->loggedOn()) { ?>
-                                <li><a href="?id=profile">Profile</a></li>
-                                <li class="divider-vertical"></li>
-                                <li><a href="?id=settings">Settings</a></li>
-                                <li class="divider-vertical"></li>
-                                <li><a href="?logout">Log out</a></li>
-                            <?php } else { ?>
-                                <li><a href="?id=signup">Sign Up</a></li>
-                                <li class="divider-vertical"></li>
                                 <li class="dropdown">
-                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, <?php echo $user->getName();?> <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li class="<?php echo ($id == "profile" ? "active" : "")?>"><a href="?id=profile"><i class="icon-user"></i> Profile</a></li>
+                                        <li class="<?php echo ($id == "settings" ? "active" : "")?>"><a href="?id=settings"><i class="icon-cog"></i> Settings</a></li>
+                                        <?php if($user->checkAdmin()) { ?>
+                                        <li class="<?php echo ($id == "admin" ? "active" : "")?>"><a href="?id=admin"><i class="icon-lock"></i> Admin</a></li>
+
+                                        <?php } ?>
+
+                                        <li class="divider"></li>
+                                        <li><a href="?logout"><i class="icon-off"></i> Log out</a></li>
+
+                            <?php } else { ?>
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon-user"></i> Sign Up <strong class="caret"></strong></a>
+                                    <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+                                        <form action="index.php" method="post" accept-charset="UTF-8">
+                                            <legend>Please sign up</legend>
+                                            <input style="margin-bottom: 15px;" type="text" name="regUser" size="30" placeholder="Username" />
+                                            <input style="margin-bottom: 15px;" type="password" name="regPwd" size="30" placeholder="Password" />
+                                            <input style="margin-bottom: 15px;" type="password" name="regConfirmPwd" size="30" placeholder="Confirm password" />
+                                            <input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; margin-bottom: 15px; font-size: 13px;" type="submit" value="Sign Up" />
+                                            <input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" value="Sign up with Facebook" />
+                                        </form>
+                                    </div>
+                                </li>
+
+                                <li class="dropdown">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon-lock"></i> Sign In <strong class="caret"></strong></a>
                                 <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
                                 <form action="index.php" method="post" accept-charset="UTF-8">
+                                    <legend>Please Sign In</legend>
                                     <input style="margin-bottom: 15px;" type="text" name="uname" size="30" placeholder="Username" />
                                     <input style="margin-bottom: 15px;" type="password" name="pwd" size="30" placeholder="Password" />
                                     <input id="user_remember_me" style="float: left; margin-right: 10px;" type="checkbox" name="remember" value="1" />
                                     <label class="string optional" for="user_remember_me">Remember me</label>
 
-                                    <input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" value="Sign In" />
+                                    <input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; margin-bottom: 15px; font-size: 13px;" type="submit" value="Sign In" />
+                                    <input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" value="Sign in with Facebook" />
                                 </form>
                                 </div>
                                 </li>
@@ -86,10 +115,10 @@ if(isset($_GET['logout'])) {
 
     <div class="container">
         <?php if($user->error) {?>
-            <div class="alert">
+            <div class="alert alert-error">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <?php $user->error; ?>
-    </div> <?php } ?>
+                <?php echo $user->error; ?>
+            </div> <?php } ?>
 
         <?php
         switch($id) {
@@ -99,6 +128,8 @@ if(isset($_GET['logout'])) {
             case "contact"  : include('pages/contact.php');    break;
             case "settings" : include('pages/settings.php');   break;
             case "profile"  : include('pages/profile.php');    break;
+            case "signup"   : include('pages/signup.php');     break;
+            case "admin"    : include('pages/admin.php');      break;
             default         : include('pages/home.php');       break;
         }
         ?>
@@ -106,6 +137,7 @@ if(isset($_GET['logout'])) {
     </div>
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <script src="js/dropdown.js"></script>
 
     </body>
 </html>

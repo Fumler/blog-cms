@@ -50,7 +50,7 @@ class User {
 					return;
 				}
 			}
-			$this->error = 'Oh snap! Your username or password seems to be wrong, try again.';			// Display error message on login form
+			$this->error = '<strong>Oh snap!</strong> Your username or password seems to be wrong, try again.';			// Display error message on login form
 		} else if (isset ($_POST['logout'])) {					// Log out
 			unset ($_SESSION['uid']);
 		} else if (isset ($_SESSION['uid'])) {					// A user is logged in, find the username
@@ -73,16 +73,17 @@ class User {
 	 * Only the first should occure.
 	 */
 	function newUser ($uname, $pwd) {
+		try {
 		$this->db->beginTransaction();							// Run in a transaction so that we can do a rollback
 		$this->db->query ('LOCK TABLES users WRITE');			// Prevent others from creating a new user at the same time
 		$sql = 'INSERT INTO users (uname) VALUES (:uname)';
 		$sth = $this->db->prepare ($sql);
 		$sth->bindParam (':uname', $uname);
 		$sth->execute ();
-		if ($sth->rowCount()==0) {								// No user created, probably because the user name is not unique
+		if ($sth->rowCount()==0) {							// No user created, probably because the user name is not unique
 			$this->db->rollBack();								// Rollback (well, nothing has been done :)
 			$this->db->query ('UNLOCK TABLES');					// Unlock the tables
-			throw new Exception ('User name already taken');	// Throw exception
+			throw new Exception('<strong>Oh snap!</strong> User name is taken! Try again.');	// Throw exception
 		}
 		$sth->closeCursor();									// Prepare to find the id of the new user
 		$sth = $this->db->prepare ('SELECT LAST_INSERT_ID() AS uid');
@@ -92,7 +93,7 @@ class User {
 		else {													// uid not found
 			$this->db->rollBack();								// Rollback, remove the user
 			$this->db->query ('UNLOCK TABLES');
-			throw new Exception ('Error getting new user id');	// Throw an exception
+			throw new Exception('<strong>Oh snap!</strong> Something went wrong. Try again.');	// Throw an exception
 		}
 		$sth->closeCursor ();
 		$sql = 'UPDATE users SET pwd=:pwd WHERE uid=:uid';		// Set the password for the new user
@@ -104,9 +105,13 @@ class User {
 		if ($sth->rowCount()==0) {								// No password set
 			$this->db->rollBack();								// Remove the user
 			$this->db->query ('UNLOCK TABLES');
-			throw new Exception ('Unable to set new password');	// Throw an exception
+			throw new Exception('<strong>Oh snap!</strong> Something went wrong. Try again.');	// Throw an exception
 		}
 		$this->db->commit();
+	} catch(Exception $e) {
+				$this->error = $e->getMessage();
+			}
+
 	}
 
 	/**
@@ -187,10 +192,25 @@ class User {
 			<label for='pwd'>Passord</label><input type='password' name='pwd'><br/>\n
 			<input type='submit' value='Logg på'/>\n</form>";
 	}
+
+	// Functions added by us
+	function checkAdmin () { // Checks if user is admin
+		$sql = 'SELECT * FROM users WHERE uid=:uid AND admin="1"';
+		$sth = $this->db->prepare ($sql);
+		$sth->bindParam (':uid', $this->getID());
+		$sth->execute ();
+		if ($sth->rowCount()==0) {
+			return false;
+		} else {
+			return true;
+		}
+		$sth->closeCursor();
+	}
 }
 
 $user = new User ($db);											// Create a new object of the User class
 if (isset ($needLogin) && !$user->loggedOn())					// check login statuss
 	die ('You need to be logged on to do this!');
+
 
 ?>

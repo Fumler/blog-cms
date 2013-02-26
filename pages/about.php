@@ -11,6 +11,7 @@
 </ul>
 
 <h1>License</h1>
+<p>The license is for the content and php code which you can find here and on <a href="https://github.com/Fumler/blog-cms">GitHub</a>. For the framework itself, please take a look at <a href="http://twitter.github.com/bootstrap">Twitter Bootstrap</a>.
 <p> Blog - A blog cms</p>
 <p>Copyright (C) 2013 Fredrik Pettersen, Inge Dalby, Christian Holt & Øyvind Nordli</p>
 <p>This program is free software: you can redistribute it and/or modify
@@ -28,3 +29,4 @@ along with this program.  If not, see <a href="http://www.gnu.org/licenses/">htt
 
 <h1>Framework</h1>
 <p>This website is created with <a href="http://twitter.github.com/bootstrap">Twitter Bootstrap</a></p>
+<p>Icons provided for free for Twitter bootstrap! They are created by the amazing people over at <a href="http://glyphicons.com/">Glyphicons</a>. Please check them out, they are awesome!</p>
