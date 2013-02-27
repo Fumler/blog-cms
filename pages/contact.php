@@ -10,8 +10,8 @@
 		$to='oe.nordli@gmail.com';
 		$subject='Customer Enquiry';
 
-		$msg="Customer Enquiry:n"."n"."Name: $name".
-		"Email: $email"."Message: $details";
+		$msg="Customer Enquiry:"." Name: $name".
+		" Email: $email"." Message: $details";
 		mail($to,$subject,$msg,'From:'.$email);
 
 		echo ("<p><strong>Your e-mail have been sent</strong></p>");
