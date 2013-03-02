@@ -196,6 +196,73 @@ class User {
 	}
 
 	// Functions added by us
+	function showUsers() {
+
+
+		echo '<table class="table table-hover">';
+    echo '<tr>';
+    echo '<th>ID</th>';
+    echo '<th>Username</th>';
+    echo '<th>First Name</th>';
+    echo '<th>Last Name</th>';
+    echo '<th>Email</th>';
+    echo '<th>Approved Posts</th>';
+    echo '<th>Dissapproved posts</th>';
+    echo '<th>Admin</th>';
+    echo '</tr>';
+
+    $result = $this->db->query('SELECT * FROM users');
+
+		foreach($result->fetchAll() as $row) {
+			echo "<tr>";
+			echo "<td>".$row['uid']."</td>";
+			echo "<td>".$row['uname']."</td>";
+			echo "<td>".$row['fname']."</td>";
+			echo "<td>".$row['lname']."</td>";
+			echo "<td>".$row['email']."</td>";
+			echo "<td>TODO</td>";
+			echo "<td>TODO</td>";
+			if($row['admin'] == 1) {
+				echo '<td>Yes</td>';
+			} else {
+				echo '<td>No <a href="?setAdmin=1">(Make admin)</a></td>';
+			}
+			echo "</tr>";
+
+		}
+		$result->closeCursor();
+
+     //  echo '</tr>';
+     //  echo '<tr>';
+     //  echo '<td>row 1, cell 1</td>';
+     //  echo '<td>row 1, cell 2</td>';
+     //  echo '</tr>';
+     //  echo '<tr>';
+     //  echo '<td>row 2, cell 1</td>';
+     //  echo '<td>row 2, cell 2</td>';
+     //  echo '</tr>';
+    echo '</table>';
+
+	}
+
+	function showProfile($uid) {
+		$user = $this->db->query('SELECT * FROM users WHERE uid=:uid');
+		//$posts = $this->db->query("SELECT * FROM posts, users WHERE posts.uid = users.uid AND users.uid = :uid")
+
+		$userInfo = $result->fetchAll();
+
+		echo "<strong>First name</strong>: ".$userInfo['fname'];
+		echo "<strong>Last name</strong>: ".$userInfo['lname'];
+		echo "<strong>Address</strong>: ".$userInfo['address'];
+		echo "<strong>Email</strong>: ".$userInfo['email'];
+		echo "<strong>Info</strong>: ".$userInfo['info'];
+
+		$user->closeCursor();
+
+	}
+
+
+
 	function checkAdmin () { // Checks if user is admin
 		$sql = 'SELECT * FROM users WHERE uid=:uid AND admin="1"';
 		$sth = $this->db->prepare ($sql);
