@@ -25,7 +25,8 @@ if(isset($_GET['logout'])) {
 // register a new user
 if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfirmPwd'])) {
     if($_POST['regPwd'] == $_POST['regConfirmPwd'] ) {
-    $user->newUser($_POST['regUser'], $_POST['regPwd']);
+        $user->newUser($_POST['regUser'], $_POST['regPwd']);
+
     } else {
         $user->error = "<strong>Oh snap!</strong> The passwords don't match!";
     }
@@ -122,6 +123,12 @@ if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfi
             <div class="alert alert-error">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                 <?php echo $user->error; ?>
+            </div> <?php } ?>
+
+        <?php if($user->success) {?>
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <?php echo $user->success; ?>
             </div> <?php } ?>
 
         <?php

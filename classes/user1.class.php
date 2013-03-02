@@ -14,6 +14,7 @@ class User {
 	var $uid = -1;												// User ID for currently logged in user
 	var $error = '';											// Error in login
 	var $db;													// Handle to the database object
+	var $success = '';										// Success messages
 
 	/**
 	 * Constructor for the class, handles login/logout and carry forward of login status.
@@ -73,7 +74,7 @@ class User {
 	 * Only the first should occure.
 	 */
 	function newUser ($uname, $pwd) {
-		try {
+		//try {
 		$this->db->beginTransaction();							// Run in a transaction so that we can do a rollback
 		$this->db->query ('LOCK TABLES users WRITE');			// Prevent others from creating a new user at the same time
 		$sql = 'INSERT INTO users (uname) VALUES (:uname)';
@@ -108,9 +109,10 @@ class User {
 			throw new Exception('<strong>Oh snap!</strong> Something went wrong. Try again.');	// Throw an exception
 		}
 		$this->db->commit();
-	} catch(Exception $e) {
-				$this->error = $e->getMessage();
-			}
+		$this->success = "<strong>Congrats!</strong> You are now registered as " . $uname . ". Please log in.";
+	//} catch(Exception $e) {
+	//			$this->error = $e->getMessage();
+	//		}
 
 	}
 
