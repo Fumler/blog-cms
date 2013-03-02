@@ -25,13 +25,13 @@
 		</legend>
 		<ol>
 			<li>
-				<label for=name> Name </label>
-				<input id=name name=name type=text
+				<label for="name"> Name </label>
+				<input id="name" name="name" type="text"
 					placeholder="First and last name" required autofocus>
 			</li>
 			<li>
-				<label for=email> Email </label>
-				<input id=email name=email type=email
+				<label for="email"> Email </label>
+				<input id="email" name="email" type="email"
 				placeholder="example@domain.com" required>
 			</li>
 		</ol>
@@ -42,12 +42,12 @@
 		</legend>
 		<ol>
 			<li>
-				<label for=address> Details </label>
-				<textarea id=address name=details rows=5 required>
+				<label for="address"> Details </label>
+				<textarea id="address" name="details" rows="5" required>
 				</textarea>
 			</li>
 		</ol>
-		<button type=submit class="btn btn-primary">
+		<button type="submit" class="btn btn-primary">
 			Send
 		</button>
 	</fieldset>
