@@ -1,5 +1,7 @@
 /* Make login button fit */
 
+.robotic { display: none; }
+
 form.login {
     border: 1px solid red;
 }
