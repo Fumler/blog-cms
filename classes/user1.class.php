@@ -275,6 +275,20 @@ class User {
 		}
 		$sth->closeCursor();
 	}
+
+	function createPost($title, $content) 
+	{
+		$sql = 'INSERT INTO posts (title, content, created, uid) '
+			. 'VALUES (:title, :content, now(), :uid)';
+		$sth = $this -> db -> prepare ($sql);
+		$sth -> bindParam (':title', $title);
+		$sth -> bindParam (':content', $content);
+		$sth -> bindParam (':uid', $this -> getId());
+
+		$sth -> execute();
+		$sth -> closeCursor();
+		$this -> success = "Your post was succesfully created!";
+	}
 }
 
 $user = new User ($db);											// Create a new object of the User class

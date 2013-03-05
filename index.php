@@ -2,7 +2,8 @@
 session_start();
 // vars
 try {
-$db = new PDO('mysql:host=localhost;dbname=blog;charset=UTF8', $_SERVER['DBUSER'], $_SERVER['DBPASS']);
+$indexDb = new PDO('mysql:host=localhost;dbname=blog;charset=UTF8', $_SERVER['DBUSER'], $_SERVER['DBPASS']);
+$db = $indexDb;
 } catch (PDOException $e) {
     print "Error!: " . $e->getMessage() . "<br/>";
     die();
@@ -68,6 +69,8 @@ if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfi
                         </ul>
                         <ul class="nav pull-right">
                             <?php if($user->loggedOn()) { ?>
+                                <li class="<?php echo($id == "newpost" ? "active" : "")?>"><a href="?id=newpost">Create Post</a></li>
+                                <li class="divider-vertical"></li>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, <?php echo $user->getName();?> <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
@@ -141,6 +144,7 @@ if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfi
             case "profile"  : include('pages/profile.php');    break;
             case "signup"   : include('pages/signup.php');     break;
             case "admin"    : include('pages/admin.php');      break;
+            case "newpost"  : include('pages/newpost.php');    break;
             default         : include('pages/home.php');       break;
         }
         ?>
