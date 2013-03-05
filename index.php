@@ -25,9 +25,9 @@ if(isset($_GET['logout'])) {
 }
 
 // register a new user
-if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfirmPwd'])) 
+if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfirmPwd']))
 {
-    if($_POST['regPwd'] == $_POST['regConfirmPwd'] ) 
+    if($_POST['regPwd'] == $_POST['regConfirmPwd'] )
     {
         $robotest = $_POST['robotest'];
         if(!$robotest)
@@ -38,8 +38,8 @@ if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfi
         {
             $user->error = "ROBOT";
         }
-    } 
-    else 
+    }
+    else
     {
         $user->error = "<strong>Oh snap!</strong> The passwords don't match!";
     }
@@ -96,7 +96,7 @@ if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfi
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, <?php echo $user->getName();?> <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                        <li class="<?php echo ($id == "profile" ? "active" : "")?>"><a href="?id=profile"><i class="icon-user"></i> Profile</a></li>
+                                        <li class="<?php echo ($id == "profile" ? "active" : "")?>"><a href="?id=profile<?php echo '&prid='.$user->getID();?>"><i class="icon-user"></i> Profile</a></li>
                                         <li class="<?php echo ($id == "settings" ? "active" : "")?>"><a href="?id=settings"><i class="icon-cog"></i> Settings</a></li>
                                         <?php if($user->checkAdmin()) { ?>
                                         <li class="<?php echo ($id == "admin" ? "active" : "")?>"><a href="?id=admin"><i class="icon-lock"></i> Admin</a></li>
@@ -106,7 +106,7 @@ if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfi
                                         <li class="divider"></li>
                                         <li><a href="?logout"><i class="icon-off"></i> Log out</a></li>
 
-                            <?php } else { 
+                            <?php } else {
 
                                 include('pages/signup.php');
 
@@ -148,6 +148,7 @@ if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfi
             </div> <?php } ?>
 
         <?php
+        $profilederp = 'profile&'.$_GET['prid'];
         switch($id) {
             case "home"     : include('pages/home.php');       break;
             case "about"    : include('pages/about.php');      break;

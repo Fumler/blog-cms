@@ -199,7 +199,7 @@ class User {
 	function showUsers() {
 
 
-		echo '<table class="table table-hover">';
+	echo '<table class="table table-hover">';
     echo '<tr>';
     echo '<th>ID</th>';
     echo '<th>Username</th>';
@@ -219,7 +219,7 @@ class User {
     		$dPosts = getDisapprovedPosts($row['uid']);
 			echo "<tr>";
 			echo "<td>".$row['uid']."</td>";
-			echo "<td>".$row['uname']."</td>";
+			echo '<td><a href="?id=profile&prid='.$row['uid'].'">'.$row['uname'].'</a></td>';
 			echo "<td>".$row['fname']."</td>";
 			echo "<td>".$row['lname']."</td>";
 			echo "<td>".$row['email']."</td>";
