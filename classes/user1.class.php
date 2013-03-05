@@ -246,19 +246,26 @@ class User {
 	}
 
 	function showProfile($uid) {
-		$user = $this->db->query('SELECT * FROM users WHERE uid=:uid');
+		$sql = "SELECT * FROM users WHERE uid=$uid";
+		$result = $this->db->query($sql);
 		//$posts = $this->db->query("SELECT * FROM posts, users WHERE posts.uid = users.uid AND users.uid = :uid")
 
-		$userInfo = $result->fetchAll();
+		if ($result) {
+			$userInfo = $result->fetchAll();
 
-		echo "<strong>First name</strong>: ".$userInfo['fname'];
-		echo "<strong>Last name</strong>: ".$userInfo['lname'];
-		echo "<strong>Address</strong>: ".$userInfo['address'];
-		echo "<strong>Email</strong>: ".$userInfo['email'];
-		echo "<strong>Info</strong>: ".$userInfo['info'];
+			print_r($userInfo);
+			
+			echo "<dl><dt>First name:</dt>"."<dd>".$userInfo['fname']."</dd>";
+			echo "<dt>Last name:</dt>"."<dd>".$userInfo['lname']."</dd>";
+			echo "<dt>Address:</dt>"."<dd>".$userInfo['address']."</dd>";
+			echo "<dt>Email:</dt>"."<dd>".$userInfo['email']."</dd>";
+			echo "<dt>Info:</dt>"."<dd>".$userInfo['info']."</dd></dl>";
 
-		$user->closeCursor();
-
+			$result->closeCursor();
+		}
+		else {
+			echo '$Result is empty';
+		}
 	}
 
 
