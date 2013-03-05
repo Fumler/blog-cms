@@ -4,16 +4,23 @@
 <?php
 	function createPost($title, $content) 
 	{
+		global $db, $user;
 		$sql = 'INSERT INTO posts (title, content, created, uid) '
 			. 'VALUES (:title, :content, now(), :uid)';
-		$sth =  $indexDb -> prepare ($sql);
+		$sth =  $db -> prepare ($sql);
 		$sth -> bindParam (':title', $title);
 		$sth -> bindParam (':content', $content);
-		$sth -> bindParam (':uid', $this -> getId());
+		$sth -> bindParam (':uid', $user -> getId());
 
 		$sth -> execute();
 		$sth -> closeCursor();
-		$this -> success = "Your post was succesfully created!";
+
+		?>
+			<div class="alert alert-success">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<?php echo "<p><strong>Your blog post have been created</strong></p>" ?>
+			</div> 
+		<?php
 	}
 ?>
 
@@ -22,26 +29,8 @@
 	{
 		$title = $_POST['title'];
 		$content = $_POST['newpost'];
-
-		//print_r($indexDb);
-
 		createPost($title, $content);
 	}
-
-	// if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['details']))
-	// {
-	// 	$name=$_POST['name'];
-	// 	$email=$_POST['email'];
-	// 	$details=$_POST['details'];
-	// 	$to='oe.nordli@gmail.com';
-	// 	$subject='Customer Enquiry';
-
-	// 	$msg="Customer Enquiry:"." Name: $name".
-	// 	" Email: $email"." Message: $details";
-	// 	mail($to,$subject,$msg,'From:'.$email);
-
-	// 	echo ("<p><strong>Your e-mail have been sent</strong></p>");
-	// }
 ?>
 
 <form action="index.php?id=newpost" method="post">

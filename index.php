@@ -8,7 +8,7 @@ $db = $indexDb;
     print "Error!: " . $e->getMessage() . "<br/>";
     die();
 }
-
+ 
 // includes
 require_once('classes/user1.class.php');
 
