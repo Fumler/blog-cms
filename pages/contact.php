@@ -14,7 +14,9 @@
 		" Email: $email"." Message: $details";
 		mail($to,$subject,$msg,'From:'.$email);
 
-		echo ("<p><strong>Your e-mail have been sent</strong></p>");
+		$user->success="Your e-mail have been sent";
+
+		//echo ("<p><strong>Your e-mail have been sent</strong></p>");
 	}
 ?>
 
@@ -43,7 +45,7 @@
 		<ol>
 			<li>
 				<label for="address"> Details </label>
-				<textarea id="address" name="details" rows="5" required>
+				<textarea id="address" name="details" cols="50" rows="5" required>
 				</textarea>
 			</li>
 		</ol>
