@@ -11,6 +11,7 @@
 </ul>
 
 <h1>License</h1>
+<p>User1.class.php is created by Øivind Kolloen and modified by us.</p>
 <p>The license is for the content and php code which you can find here and on <a href="https://github.com/Fumler/blog-cms">GitHub</a>. For the framework itself, please take a look at <a href="http://twitter.github.com/bootstrap">Twitter Bootstrap</a>.
 <p> Blog - A blog cms</p>
 <p>Copyright (C) 2013 Fredrik Pettersen, Inge Dalby, Christian Holt & Øyvind Nordli</p>

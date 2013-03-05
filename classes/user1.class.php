@@ -207,21 +207,24 @@ class User {
     echo '<th>Last Name</th>';
     echo '<th>Email</th>';
     echo '<th>Approved Posts</th>';
-    echo '<th>Dissapproved posts</th>';
+    echo '<th>Disapproved posts</th>';
     echo '<th>Admin</th>';
     echo '</tr>';
 
     $result = $this->db->query('SELECT * FROM users');
 
+
 		foreach($result->fetchAll() as $row) {
+			$aPosts = getApprovedPosts($row['uid']);
+    		$dPosts = getDisapprovedPosts($row['uid']);
 			echo "<tr>";
 			echo "<td>".$row['uid']."</td>";
 			echo "<td>".$row['uname']."</td>";
 			echo "<td>".$row['fname']."</td>";
 			echo "<td>".$row['lname']."</td>";
 			echo "<td>".$row['email']."</td>";
-			echo "<td>TODO</td>";
-			echo "<td>TODO</td>";
+			echo "<td>".count($aPosts)."</td>";
+			echo "<td>".count($dPosts)."</td>";
 			if($row['admin'] == 1) {
 				echo '<td>Yes</td>';
 			} else {
@@ -245,21 +248,14 @@ class User {
 
 	}
 
-	function showProfile($uid) {
-		$sql = "SELECT * FROM users WHERE uid=$uid";
-		$result = $this->db->query($sql);
-		//$posts = $this->db->query("SELECT * FROM posts, users WHERE posts.uid = users.uid AND users.uid = :uid")
-
-		if ($result) {
-			foreach($result->fetchAll() as $row) {
-				echo "<dl class='dl-horizontal'><dt>First name:</dt>"."<dd>".$row['fname']."</dd>";
-				echo "<dt>Last name:</dt>"."<dd>".$row['lname']."</dd>";
-				echo "<dt>Address:</dt>"."<dd>".$row['address']."</dd>";
-				echo "<dt>Email:</dt>"."<dd>".$row['email']."</dd>";
-				echo "<dt>Info:</dt>"."<dd>".$row['info']."</dd></dl>";
-			}
-			$result->closeCursor();
-		}
+	function showUser($uid) {
+		$sql = 'SELECT * FROM users WHERE uid=:uid';
+    	$sth = $this->db->prepare($sql);
+    	$sth->bindParam(':uid', $uid);
+    	$sth->execute();
+    	$result = $sth->fetch(PDO::FETCH_ASSOC);
+    	$sth->closeCursor();
+    	return $result;
 	}
 
 
@@ -277,19 +273,20 @@ class User {
 		$sth->closeCursor();
 	}
 
-	function createPost($title, $content) 
+	function showPosts($uid)
 	{
-		$sql = 'INSERT INTO posts (title, content, created, uid) '
-			. 'VALUES (:title, :content, now(), :uid)';
-		$sth = $this -> db -> prepare ($sql);
-		$sth -> bindParam (':title', $title);
-		$sth -> bindParam (':content', $content);
-		$sth -> bindParam (':uid', $this -> getId());
+		$sql = 'SELECT * FROM posts WHERE uid=:uid ORDER BY created desc';
+		$sth = $this->db->prepare($sql);
+		$sth->bindParam(':uid', $uid);
+		$sth->execute();
+		$result = $sth->fetchAll();
+		$sth->closeCursor();
 
-		$sth -> execute();
-		$sth -> closeCursor();
-		$this -> success = "Your post was succesfully created!";
+		return $result;
 	}
+
+
+
 }
 
 $user = new User ($db);											// Create a new object of the User class

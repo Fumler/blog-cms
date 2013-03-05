@@ -8,9 +8,10 @@ $db = $indexDb;
     print "Error!: " . $e->getMessage() . "<br/>";
     die();
 }
- 
+
 // includes
 require_once('classes/user1.class.php');
+include('functions/functions.php');
 
 // if id has a value, get it, if not set to home
 $id = isset($_GET['id']) ? $_GET['id'] : 'home';
@@ -46,6 +47,16 @@ if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfi
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/bootstrap-responsive.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/custom.css" media="all">
+        <?php
+        if($_SESSION['style'] == 'option2') {
+           echo  '<link rel="stylesheet" href="css/dark.min.css" media="screen">';
+        } else if($_SESSION['style'] == 'option3') {
+            echo  '<link rel="stylesheet" href="css/journal.min.css" media="screen">';
+        } else {
+
+        }
+
+        ?>
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top">

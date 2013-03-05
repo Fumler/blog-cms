@@ -2,7 +2,7 @@
 <h1>Create a new blog post!</h1>
 
 <?php
-	function createPost($title, $content) 
+	function createPost($title, $content)
 	{
 		global $db, $user;
 		$sql = 'INSERT INTO posts (title, content, created, uid) '
@@ -19,7 +19,7 @@
 			<div class="alert alert-success">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
 				<?php echo "<p><strong>Your blog post have been created</strong></p>" ?>
-			</div> 
+			</div>
 		<?php
 	}
 ?>
@@ -39,14 +39,14 @@
 			Information
 		</legend>
 		<ul>
-			<li>
-				<label for="title"> Title </label>
+			<li style="list-style: none;">
+				<label class="control-label" for="title"> Title </label>
 				<input id="title" name="title" type="text"
 					placeholder="The title of your post" required autofocus>
 			</li>
 
-			<li>
-				<label for="newpost"> Post </label>
+			<li style="list-style: none;">
+				<label class="control-label" for="newpost"> Post </label>
 				<div class="btn-toolbar">
 				  <div class="btn-group">
 				      <button class="btn" data-original-title="Bold - Ctrl+B"><i class="icon-bold"></i></button>
