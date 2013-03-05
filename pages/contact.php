@@ -4,17 +4,22 @@
 <?php
 	if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['details']))
 	{
-		$name=$_POST['name'];
-		$email=$_POST['email'];
-		$details=$_POST['details'];
-		$to='oe.nordli@gmail.com';
-		$subject='Customer Enquiry';
+	    $name=$_POST['name'];
+	    $email=$_POST['email'];
+	    $details=$_POST['details'];
+	    $to='fmaster@basketak.net';
+	    $subject='Customer Enquiry';
 
-		$msg="Customer Enquiry:"." Name: $name".
-		" Email: $email"." Message: $details";
-		mail($to,$subject,$msg,'From:'.$email);
+	    $msg="Customer Enquiry:"." Name: $name".
+	    " Email: $email"." Message: $details";
+	    mail($to,$subject,$msg,'From:'.$email);
 
-		echo ("<p><strong>Your e-mail have been sent</strong></p>");
+		?>
+			<div class="alert alert-success">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<?php echo "<p><strong>Your e-mail have been sent</strong></p>" ?>
+			</div> 
+		<?php
 	}
 ?>
 
@@ -43,7 +48,7 @@
 		<ol>
 			<li>
 				<label for="address"> Details </label>
-				<textarea id="address" name="details" rows="5" required>
+				<textarea id="address" name="details" class="input-xlarge span5" rows="5" required>
 				</textarea>
 			</li>
 		</ol>

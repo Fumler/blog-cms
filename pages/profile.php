@@ -11,14 +11,7 @@
 	</div>
 </div>
 
-<dl class="dl-horizontal">
-	<dt>First name: </dt>
-
-	<dt>Last name: </dt>
-	
-	<dt>Email: </dt>
-
-	<dt>Address: </dt>
-
-	<dt>Info: </dt>
-</dl>
+<?php 
+	$uid = $user->getID(); 
+	$user->showProfile($uid);
+?>
