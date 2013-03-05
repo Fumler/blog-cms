@@ -7,7 +7,7 @@
 		$name=$_POST['name'];
 		$email=$_POST['email'];
 		$details=$_POST['details'];
-		$to='oe.nordli@gmail.com';
+		$to='fmaster@basketak.net';
 		$subject='Customer Enquiry';
 
 		$msg="Customer Enquiry:"." Name: $name".
