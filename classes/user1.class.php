@@ -251,20 +251,14 @@ class User {
 		//$posts = $this->db->query("SELECT * FROM posts, users WHERE posts.uid = users.uid AND users.uid = :uid")
 
 		if ($result) {
-			$userInfo = $result->fetchAll();
-
-			print_r($userInfo);
-			
-			echo "<dl><dt>First name:</dt>"."<dd>".$userInfo['fname']."</dd>";
-			echo "<dt>Last name:</dt>"."<dd>".$userInfo['lname']."</dd>";
-			echo "<dt>Address:</dt>"."<dd>".$userInfo['address']."</dd>";
-			echo "<dt>Email:</dt>"."<dd>".$userInfo['email']."</dd>";
-			echo "<dt>Info:</dt>"."<dd>".$userInfo['info']."</dd></dl>";
-
+			foreach($result->fetchAll() as $row) {
+				echo "<dl class='dl-horizontal'><dt>First name:</dt>"."<dd>".$row['fname']."</dd>";
+				echo "<dt>Last name:</dt>"."<dd>".$row['lname']."</dd>";
+				echo "<dt>Address:</dt>"."<dd>".$row['address']."</dd>";
+				echo "<dt>Email:</dt>"."<dd>".$row['email']."</dd>";
+				echo "<dt>Info:</dt>"."<dd>".$row['info']."</dd></dl>";
+			}
 			$result->closeCursor();
-		}
-		else {
-			echo '$Result is empty';
 		}
 	}
 
