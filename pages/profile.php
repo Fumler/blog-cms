@@ -10,7 +10,6 @@
 
 <?php
 	$uid = $_GET['prid'];
-    echo $uid;
 	$posts = getPosts($uid);
     $userInfo = getUser($uid);
     ?>
@@ -41,13 +40,51 @@ if($user->checkAdmin()) { ?>
 
 <?php
 
-foreach($posts as $row) {
-      echo '<div class="media">';
-      echo '<div class="media-body">';
-      echo '<h4 class="media-heading">'.$row['title'].'</h4>';
-      echo '<p>'.$row['content'].'</p>';
-      echo '</div>';
-      echo '</div>';
+foreach($posts as $row) { ?>
+      <div class="row">
+        <div class="span8">
+          <div class="row">
+            <div class="span8">
+              <h4><strong><a href="#"><?php echo $row['title'];?></a></strong></h4>
+            </div>
+          </div>
+          <div class="row">
+            <div class="span8">
+
+            </div>
+          </div>
+          <div class="row">
+            <div class="span2">
+              <a href="#" class="thumbnail">
+                  <img src="<?php echo $userInfo['pic'];?>" alt="">
+              </a>
+            </div>
+            <div class="span6">
+              <p><?php echo $row['content'];?></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="span8">
+              <p></p>
+              <p>
+                <i class="icon-calendar"></i>Posted <?php echo $row['created'];?>
+                 - <i class="icon-comment"></i> <a href="#">Comments</a>
+                 - <i class="icon-thumbs-up"></i> <a href="#">Likes</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+<?php
+      // echo '<div class="media">';
+      // echo '<div class="media-body">';
+      // echo '<h4 class="media-heading">'.$row['title'].'</h4>';
+      // echo '<p>'.$row['content'].'</p>';
+      // echo '</div>';
+      // echo '</div>';
     }
 }
 
