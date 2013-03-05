@@ -74,7 +74,7 @@ class User {
 	 * Only the first should occure.
 	 */
 	function newUser ($uname, $pwd) {
-		//try {
+		try {
 		$this->db->beginTransaction();							// Run in a transaction so that we can do a rollback
 		$this->db->query ('LOCK TABLES users WRITE');			// Prevent others from creating a new user at the same time
 		$sql = 'INSERT INTO users (uname) VALUES (:uname)';
@@ -110,9 +110,9 @@ class User {
 		}
 		$this->db->commit();
 		$this->success = "<strong>Congrats!</strong> You are now registered as " . $uname . ". Please log in.";
-	//} catch(Exception $e) {
-	//			$this->error = $e->getMessage();
-	//		}
+	} catch(Exception $e) {
+				$this->error = $e->getMessage();
+			}
 
 	}
 
@@ -228,7 +228,7 @@ class User {
 			if($row['admin'] == 1) {
 				echo '<td>Yes</td>';
 			} else {
-				echo '<td>No <a href="?setAdmin=1">(Make admin)</a></td>';
+				echo '<td>No <a href="?setAdmin='.$row['uid'].'">(Make admin)</a></td>';
 			}
 			echo "</tr>";
 

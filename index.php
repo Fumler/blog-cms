@@ -24,6 +24,11 @@ if(isset($_GET['logout'])) {
     header('Location: '.$_SERVER['PHP_SELF']);
 }
 
+// make admin
+if(isset($_GET['setAdmin'])) {
+    makeAdmin($_GET['setAdmin']);
+}
+
 // register a new user
 if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfirmPwd']))
 {

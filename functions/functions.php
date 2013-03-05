@@ -55,6 +55,26 @@ function getPosts($uid) // gets all posts from a specific user, sorted by date
     return $result;
 }
 
+function makeAdmin($uid) {
+    global $db;
+    global $user;
+    $db->beginTransaction();
+    $db->query ('LOCK TABLES users WRITE');
+    $sql = 'UPDATE users SET admin="1" WHERE uid=:uid';
+    $sth = $db->prepare($sql);
+    $sth->bindParam(':uid', $uid);
+    $sth->execute();
+    if($sth->rowCount() == 0) {
+        $db->rollBack();
+        $db->query('UNLOCK TABLES');
+        $user->error = "<strong>Oh snap!</strong> He simply cannot be an admin! (He probably is one already?)";
+    }
+    $result = $sth->fetchAll();
+    $sth->closeCursor();
+    $db->commit();
+    $user->success = "<strong>Success!</strong> Your pal is now an admin!";
+}
+
 // function getBlog($uid) {
 //     global $db;
 //     $sql = 'SELECT * FROM users, posts WHERE users.uid=:uid AND users.uid = posts.uid';
