@@ -25,11 +25,22 @@ if(isset($_GET['logout'])) {
 }
 
 // register a new user
-if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfirmPwd'])) {
-    if($_POST['regPwd'] == $_POST['regConfirmPwd'] ) {
-        $user->newUser($_POST['regUser'], $_POST['regPwd']);
-
-    } else {
+if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfirmPwd'])) 
+{
+    if($_POST['regPwd'] == $_POST['regConfirmPwd'] ) 
+    {
+        $robotest = $_POST['robotest'];
+        if(!$robotest)
+        {
+            $user->newUser($_POST['regUser'], $_POST['regPwd']);
+        }
+        else
+        {
+            $user->error = "ROBOT";
+        }
+    } 
+    else 
+    {
         $user->error = "<strong>Oh snap!</strong> The passwords don't match!";
     }
 }
@@ -95,20 +106,11 @@ if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfi
                                         <li class="divider"></li>
                                         <li><a href="?logout"><i class="icon-off"></i> Log out</a></li>
 
-                            <?php } else { ?>
-                                <li class="dropdown">
-                                    <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon-user"></i> Sign Up <strong class="caret"></strong></a>
-                                    <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
-                                        <form action="index.php" method="post" accept-charset="UTF-8">
-                                            <legend>Please sign up</legend>
-                                            <input style="margin-bottom: 15px;" type="text" name="regUser" size="30" placeholder="Username" />
-                                            <input style="margin-bottom: 15px;" type="password" name="regPwd" size="30" placeholder="Password" />
-                                            <input style="margin-bottom: 15px;" type="password" name="regConfirmPwd" size="30" placeholder="Confirm password" />
-                                            <input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; margin-bottom: 15px; font-size: 13px;" type="submit" value="Sign Up" />
-                                            <input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" value="Sign up with Facebook" />
-                                        </form>
-                                    </div>
-                                </li>
+                            <?php } else { 
+
+                                include('pages/signup.php');
+
+                                ?>
 
                                 <li class="dropdown">
                                 <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon-lock"></i> Sign In <strong class="caret"></strong></a>
