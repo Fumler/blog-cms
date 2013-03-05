@@ -34,7 +34,7 @@ if($user->loggedOn()) {
               <p></p>
               <p>
                 <i class="icon-calendar"></i>Posted <?php echo $row['created'];?>
-                 -  <i class="icon-user"></i>Written by <?php echo $pic['uname'];?>
+                 -  <i class="icon-user"></i>Written by <?php echo $userInfo['uname'];?>
                  - <i class="icon-comment"></i> <a href="#">Comments</a>
                  - <i class="icon-thumbs-up"></i> <a href="#">Likes</a>
               </p>
