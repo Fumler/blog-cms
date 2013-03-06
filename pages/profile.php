@@ -5,12 +5,17 @@
 <?php
   $uid = $_GET['prid'];
 
-  if (isset($_POST['oldPwd'])) {
-    if (isset($_POST['newPwd']) && isset($_POST['newPwdA'])) {
+  if (isset($_POST['oldPwd']) && strlen($_POST['oldPwd']) != 0) {
+    if ((isset($_POST['newPwd']) && isset($_POST['newPwdA'])) && strlen($_POST['newPwd']) != 0) {
       if ($_POST['newPwd'] === $_POST['newPwdA']) {
         $user->changePassword($_POST['oldPwd'], $_POST['newPwd']);
-      } else {
-        $user->error = "New passwords don't match!";
+      } else { 
+        ?>
+          <div class="alert alert-error">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <?php echo "<p><strong>Your passwords do not match</strong></p>" ?>
+          </div> 
+        <?php
       }
     }
   }
