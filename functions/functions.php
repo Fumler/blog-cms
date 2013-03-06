@@ -67,7 +67,7 @@ function getPostById($pid) // gets a blogpost based on the unique post ID.
     return $result;
 }
 
-function getCommentsByPostId($pid) // gets all comments on a certain blog post. 
+function getCommentsByPostId($pid) // gets all comments on a certain blog post.
 {
     global $db;
     $sql = 'SELECT * from comments WHERE approved=1 AND pid=:pid';
@@ -89,7 +89,7 @@ function deletePostById($pid)   // Removes a blog post (Used to delete own posts
     $sth -> closeCursor();
 }
 
-function reportPostById($pid)  // Reports a pos (increments the counter). 
+function reportPostById($pid)  // Reports a pos (increments the counter).
 {
     global $db;
     $sql = 'UPDATE posts SET reports=reports + 1 WHERE pid=:pid';
@@ -99,25 +99,25 @@ function reportPostById($pid)  // Reports a pos (increments the counter).
     $sth -> closeCursor();
 }
 
-function makeAdmin($uid) 
+function makeAdmin($uid)
 {
     global $db;
     global $user;
-    
+
     $db->beginTransaction();
     $db->query ('LOCK TABLES users WRITE');
     $sql = 'UPDATE users SET admin="1" WHERE uid=:uid';
     $sth = $db->prepare($sql);
     $sth->bindParam(':uid', $uid);
     $sth->execute();
-    
-    if($sth->rowCount() == 0) 
+
+    if($sth->rowCount() == 0)
     {
         $db->rollBack();
         $db->query('UNLOCK TABLES');
         $user->error = "<strong>Oh snap!</strong> He simply cannot be an admin! (He probably is one already?)";
     }
-    
+
     $result = $sth->fetchAll();
     $sth->closeCursor();
     $db->commit();
@@ -125,98 +125,69 @@ function makeAdmin($uid)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function updatePostViews($pid) {
     global $db;
-    $db->beginTransaction();
-    $db->query ('LOCK TABLES users WRITE');
+
     $sql = 'UPDATE posts SET visits=visits+1 WHERE pid=:pid';
     $sth = $db->prepare($sql);
     $sth->bindParam(':pid', $pid);
     $sth->execute();
-    if($sth->rowCount() == 0) {
-        $db->rollBack();
-        $db->query('UNLOCK TABLES');
-    }
-    $result = $sth->fetchAll();
     $sth->closeCursor();
-    $db->commit();
+}
+
+function getTopPosts($weeks, $sort) {
+    global $db;
+
+    if($weeks == "1") {
+        if($sort == "comments") {
+            $sql = 'SELECT title, posts.pid FROM posts, comments WHERE  '
+
+
+        } else {
+            $sql = 'SELECT title, pid FROM posts WHERE created >= ( CURDATE() - INTERVAL 7 DAY ) ORDER BY created desc LIMIT 0,10';
+
+        }
+
+    } else if($weeks == "2") {
+        if($sort == "comments") {
+
+        } else {
+            $sql = 'SELECT title, pid FROM posts WHERE created >= ( CURDATE() - INTERVAL 14 DAY ) ORDER BY created desc LIMIT 0,10';
+
+        }
+
+    } else if($weeks == "3") {
+        if($sort == "comments") {
+
+        } else {
+            $sql = 'SELECT title, pid FROM posts WHERE created >= ( CURDATE() - INTERVAL 21 DAY ) ORDER BY created desc LIMIT 0,10';
+
+        }
+
+    } else if($weeks == "4") {
+        if($sort == "comments") {
+
+        } else {
+            $sql = 'SELECT title, pid FROM posts WHERE created >= ( CURDATE() - INTERVAL 30 DAY ) ORDER BY created desc LIMIT 0,10';
+
+        }
+
+    } else if($weeks == "all") {
+        if($sort == "comments") {
+
+        } else {
+            $sql = 'SELECT title, pid FROM posts ORDER BY created desc LIMIT 0,10';
+
+        }
+
+    }
+
+    $sql = 'SELECT * FROM posts WHERE '
+
+}
+
+function getTopUsers($days, $sort) {
+
 }
 
 ?>

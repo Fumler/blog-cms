@@ -4,7 +4,7 @@
     $post = getPostById($pid);
 
     $userInfo = getUser($post['uid']);
-    
+
     if(isset($_GET['pid'])) {
       updatePostViews($pid);
     }
@@ -65,7 +65,7 @@
           Comments
       </legend>
     <?php
-      
+
       $comments = getCommentsByPostId($pid);
 
       foreach($comments as $comment)
@@ -94,7 +94,7 @@
       }
 
       global $user;
-      
+
       if($user -> loggedOn())
       {
           include('pages/comment.php');
