@@ -79,12 +79,17 @@ function getCommentsByPostId($pid) // gets all comments on a certain blog post.
     return $result;
 }
 
-function removePostById($pid)
+function deletePostById($pid)   // Removes a blog post (Used to delete own posts)
 {
-    global $db; 
+    global $db;
+    $sql = 'DELETE FROM posts WHERE pid=:pid';
+    $sth = $db -> prepare($sql);
+    $sth -> bindParam(':pid', $pid);
+    $sth -> execute();
+    $sth -> closeCursor();
 }
 
-function reportPostById($pid)
+function reportPostById($pid)  // Reports a pos (increments the counter). 
 {
     global $db;
     $sql = 'UPDATE posts SET reports=reports + 1 WHERE pid=:pid';
