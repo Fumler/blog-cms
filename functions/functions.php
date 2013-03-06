@@ -79,6 +79,21 @@ function getCommentsByPostId($pid) // gets all comments on a certain blog post.
     return $result;
 }
 
+function removePostById($pid)
+{
+    global $db; 
+}
+
+function reportPostById($pid)
+{
+    global $db;
+    $sql = 'UPDATE posts SET reports=reports + 1 WHERE pid=:pid';
+    $sth = $db -> prepare($sql);
+    $sth -> bindParam(':pid', $pid);
+    $sth -> execute();
+    $sth -> closeCursor();
+}
+
 function makeAdmin($uid) 
 {
     global $db;
