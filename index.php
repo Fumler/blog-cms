@@ -29,6 +29,22 @@ if(isset($_GET['setAdmin'])) {
     makeAdmin($_GET['setAdmin']);
 }
 
+// remove post
+if(isset($_GET['removepost']))
+{
+    $pid = $_GET['removepost'];
+
+    deletePostById($pid);
+}
+
+// report post
+if(isset($_GET['reportpost']))
+{
+    $pid = $_GET['reportpost'];
+
+    reportPostById($pid);
+}
+
 // register a new user
 if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfirmPwd']))
 {
