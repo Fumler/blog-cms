@@ -211,7 +211,7 @@ function getTopPosts($weeks, $sort) {
 
     }
 
-    $sql = 'SELECT * FROM posts WHERE '
+
 
 }
 
