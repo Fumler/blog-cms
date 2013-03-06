@@ -51,6 +51,15 @@ function deleteComment($commentId) { // set content of comment to "Deleted by ad
     $sth->closeCursor();
 }
 
+function deletePost($postId) { // set content of comment to "Deleted by admin"
+    global $db;
+    $sql = 'UPDATE posts SET approved = "0", content = CONCAT("<strong>Deleted by admin</strong> </br>", content) WHERE pid = :pid';
+    $sth = $db->prepare($sql);
+    $sth->bindParam(':pid', $postId);
+    $sth->execute();
+    $sth->closeCursor();
+}
+
 function getAllReportedComments() { // gets all disapproved comments
     global $db;
     $sql = 'SELECT * FROM comments WHERE reports > "0" AND approved = "1"';

@@ -4,13 +4,26 @@
     $delete = $_POST['delete'];
     if($delete == "delete")
     {
-      deleteComment($_GET['cid']);
-      ?>
-      <div class="alert alert-success">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <?php echo "<p><strong>Comment have been deleted</strong></p>" ?>
-      </div>
-      <?php
+      if(isset($_GET['cid']))
+      {
+        deleteComment($_GET['cid']);
+        ?>
+        <div class="alert alert-success">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <?php echo "<p><strong>Comment have been deleted</strong></p>" ?>
+        </div>
+        <?php
+      }
+      else if(isset($_GET['pid']))
+      {
+        deletePost($_GET['pid']);
+        ?>
+        <div class="alert alert-success">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <?php echo "<p><strong>Post have been deleted</strong></p>" ?>
+        </div>
+        <?php
+      }
     }
   }
 ?>
@@ -47,7 +60,7 @@ if($user->checkAdmin()) { ?>
               </a>
             </div>
             <div class="span6">
-              <p><h4><strong><a href="?id=profile&prid=<?php echo $tempUser['uid'];?>"><?php echo $tempUser['uname'];?></a></strong></h4></p>
+              <p><h4><strong><a href="?id=viewpost&pid=<?php echo $post['pid'];?>">View post</a></strong></h4></p>
             </div>
           </div>
             </br>
