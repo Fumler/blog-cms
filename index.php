@@ -164,6 +164,7 @@ if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfi
             case "signup"   : include('pages/signup.php');     break;
             case "admin"    : include('pages/admin.php');      break;
             case "newpost"  : include('pages/newpost.php');    break;
+            case "viewpost" : include('pages/viewpost.php');   break;
             default         : include('pages/home.php');       break;
         }
         ?>

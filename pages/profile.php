@@ -1,5 +1,5 @@
 <div>
-	<legend>Profile</legend>
+ <legend>Profile</legend>
 </div>
 
 <?php
