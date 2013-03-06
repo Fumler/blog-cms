@@ -32,6 +32,35 @@ function getDisapprovedPosts($uid) { // gets all disapproved posts by specific u
     return $result;
 }
 
+function getAllReportedPosts() { // gets all disapproved posts
+    global $db;
+    $sql = 'SELECT * FROM posts WHERE reports > "0"';
+    $sth = $db->prepare($sql);
+    $sth->execute();
+    $result = $sth->fetchAll();
+    $sth->closeCursor();
+    return $result;
+}
+
+function deleteComment($commentId) { // set content of comment to "Deleted by admin"
+    global $db;
+    $sql = 'UPDATE comments SET approved = "0", content = CONCAT("<strong>Deleted by admin</strong> </br>", content) WHERE cid = :cid';
+    $sth = $db->prepare($sql);
+    $sth->bindParam(':cid', $commentId);
+    $sth->execute();
+    $sth->closeCursor();
+}
+
+function getAllReportedComments() { // gets all disapproved comments
+    global $db;
+    $sql = 'SELECT * FROM comments WHERE reports > "0" AND approved = "1"';
+    $sth = $db->prepare($sql);
+    $sth->execute();
+    $result = $sth->fetchAll();
+    $sth->closeCursor();
+    return $result;
+}
+
 function getUser($uid) { // gets info about a specific user
     global $db;
     $sql = 'SELECT * FROM users WHERE uid=:uid';
@@ -70,7 +99,7 @@ function getPostById($pid) // gets a blogpost based on the unique post ID.
 function getCommentsByPostId($pid) // gets all comments on a certain blog post.
 {
     global $db;
-    $sql = 'SELECT * from comments WHERE approved=1 AND pid=:pid';
+    $sql = 'SELECT * from comments WHERE pid=:pid';
     $sth = $db -> prepare($sql);
     $sth -> bindParam(':pid', $pid);
     $sth -> execute();
