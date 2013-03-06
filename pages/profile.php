@@ -28,6 +28,8 @@
     $userInfo = getUser($uid);
     ?>
     <form method="post" action=<?php echo "index.php?id=profile" . "&prid=$uid" ?>>
+      <label>Profile Picture</label>
+      <img src=<?php echo $userInfo['pic']; ?>>
       <label>Username</label>
       <input type="text" value="<?php echo $userInfo['uname']; ?>" class="input-xlarge" disabled>
       <label>First Name</label>
