@@ -34,7 +34,7 @@ function getDisapprovedPosts($uid) { // gets all disapproved posts by specific u
 
 function getAllReportedPosts() { // gets all disapproved posts
     global $db;
-    $sql = 'SELECT * FROM posts WHERE reports > "0"';
+    $sql = 'SELECT * FROM posts WHERE reports > "0" AND approved = "1"';
     $sth = $db->prepare($sql);
     $sth->execute();
     $result = $sth->fetchAll();
@@ -47,6 +47,15 @@ function deleteComment($commentId) { // set content of comment to "Deleted by ad
     $sql = 'UPDATE comments SET approved = "0", content = CONCAT("<strong>Deleted by admin</strong> </br>", content) WHERE cid = :cid';
     $sth = $db->prepare($sql);
     $sth->bindParam(':cid', $commentId);
+    $sth->execute();
+    $sth->closeCursor();
+}
+
+function deletePost($postId) { // set content of comment to "Deleted by admin"
+    global $db;
+    $sql = 'UPDATE posts SET approved = "0", content = CONCAT("<strong>Deleted by admin</strong> </br>", content) WHERE pid = :pid';
+    $sth = $db->prepare($sql);
+    $sth->bindParam(':pid', $postId);
     $sth->execute();
     $sth->closeCursor();
 }
