@@ -248,6 +248,20 @@ class User {
 
 	}
 
+	function updatePic($uid, $pic) {
+		$sql = 'UPDATE users SET pic=:pic WHERE uid=:uid';
+		$sth = $this->db->prepare($sql);
+		$sth->bindParam(':uid', $uid);
+		$sth->bindParam(':pic', $pic);
+		$sth->execute();
+
+		if ($sth->rowCount() == 0) {
+			throw new Exception('Query failed');
+		}
+
+		$sth->closeCursor();
+	}
+
 	function updateUser($uid, $fname, $lname, $email, $address, $info) {
 		$sql = 'UPDATE users SET fname=:fname, lname=:lname, email=:email, address=:address, info=:info WHERE uid=:uid';
 		$sth = $this->db->prepare($sql);
@@ -260,7 +274,7 @@ class User {
 		$sth->execute();
 
 		if ($sth->rowCount() == 0) {
-			throw new Exception ('Query failed');
+			throw new Exception('Query failed');
 		}
 
 		$sth->closeCursor();

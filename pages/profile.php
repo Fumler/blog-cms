@@ -7,25 +7,23 @@
   $posts = getPosts($uid);
   $userInfo = getUser($uid);
 
-  define ("MAX_SIZE", "250");
+  // Maximum filesize
+  define ("MAX_SIZE","300"); 
 
-  // Check file extenstion
+  // returns the extension of a file.
   function getExtension($str) {
-    $i = strrpos($str, ".");
-    if (!$i) {
-      return "";
-    }
-
+    $i = strrpos($str,".");
+    if (!$i) { return ""; }
     $l = strlen($str) - $i;
-
-    $ext = substr($str, $i+1, $l);
+    $ext = substr($str,$i+1,$l);
     return $ext;
   }
 
   $errors = 0;
+  $newname = "";
 
-  if (isset($_POST['Submit'])) {
-    $image = $_FILES['image']['name'];
+  if(isset($_POST['Submit'])) {
+    $image=$_FILES['image']['name'];
 
     if ($image) {
       $filename = stripslashes($_FILES['image']['name']);
@@ -36,50 +34,53 @@
         ?>
         <div class="alert alert-error">
           <button type="button" class="close" data-dismiss="alert">&times;</button>
-          <?php echo "<p><strong>Invalid file extension</strong></p>" ?>
-        </div>
-        <?php 
-        $errors = 1;
+          <?php echo "<p><strong>Invalid extension!</strong></p>" ?>
+        </div> 
+        <?php
+        $errors=1;
       }
       else {
-        $size = filesize($_FILES['image']['tmp_name']);
+        $size=filesize($_FILES['image']['tmp_name']);
 
         if ($size > MAX_SIZE*1024) {
           ?>
           <div class="alert alert-error">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <?php echo "<p><strong>Filesize is too big!</strong></p>" ?>
+            <?php echo "<p><strong>Filesize has been exceeded!</strong></p>" ?>
           </div> 
           <?php
-          $errors = 1;
+          $errors=1;
         }
 
-        $image_name = $userInfo['uname'].time();
-        $newName = "img/".$image_name;
-
-        $copied = copy($_FILES['image']['tmp_name'], $newName);
+        $image_name=time().'.'.$extension;
+        $newname="img/".$image_name;
+        $copied = copy($_FILES['image']['tmp_name'], $newname);
 
         if (!$copied) {
           ?>
           <div class="alert alert-error">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <?php echo "<p><strong>Copying of file unsuccessful. Try again!</strong></p>" ?>
+            <?php echo "<p><strong>Copying was unsuccessful. Try again</strong></p>" ?>
           </div> 
           <?php
-          $errors = 1;
+          $errors=1;
         }
       }
     }
   }
 
-  if (isset($_POST['Submit']) && !$errors) {
+  if(isset($_POST['Submit']) && !$errors)  {
     ?>
-    <div class="alert alert-error">
+    <div class="alert alert-success">
       <button type="button" class="close" data-dismiss="alert">&times;</button>
       <?php echo "<p><strong>Upload successful!</strong></p>" ?>
     </div> 
     <?php
+
+    $user->updatePic($uid, $newname);
+
   }
+
 
   if (isset($_POST['oldPwd']) && strlen($_POST['oldPwd']) != 0) {
     if ((isset($_POST['newPwd']) && isset($_POST['newPwdA'])) && strlen($_POST['newPwd']) != 0) {
@@ -101,16 +102,17 @@
   }
 
   ?>
-  <form method="post" action=<?php echo "index.php?id=profile" . "&prid=$uid" ?>>
-    <label>Picture</label>
-    <img src=<?php echo $userInfo['pic']; ?>>
-    <div>
-      <form name="newad" method="post" enctype="multpart/form-data" action="">
-        <input name="image" type="file">
-        <input name="Submit" type="submit" value="Upload new image">
-      </form>
-    </div>
 
+  <label>Picture</label>
+  <img src=<?php echo $userInfo['pic']; ?> width="150">
+  <form name="newad" method="post" enctype="multipart/form-data" action="">
+    <table>
+      <tr><td><input type="file" name="image"></td></tr>
+      <tr><td><input name="Submit" type="submit" value="Upload image"></td></tr>
+    </table>  
+  </form>
+
+  <form method="post" action=<?php echo "index.php?id=profile" . "&prid=$uid" ?>>
     <label>Username</label>
     <input type="text" value="<?php echo $userInfo['uname']; ?>" class="input-xlarge" disabled>
     <label>First Name</label>
