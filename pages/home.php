@@ -84,8 +84,41 @@ if($user->loggedOn()) {
 ?>
   </div>
   <div class="span3">
+    <h4>Sort by</h4>
+
+      <form action="index.php?id=home" method="post">
+        <label>Time span</label>
+        <select name="weeks">
+          <option value="1">1 week</option>
+          <option value="2">2 weeks</option>
+          <option value="3">3 weeks</option>
+          <option value="4">4 weeks</option>
+          <option value="all">All time</option>
+        </select>
+        <label>Sort by</label>
+        <select name="sort">
+          <option value="comments">Comments</option>
+          <option value="views">Views</option>
+        </select>
+        <br>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+
     <h4>Top posts</h4>
     <div class="well" style="width: 300px;">
+      <?php
+      if(isset($_POST['weeks']) && isset($_POST['sort'])) {
+          $posts = getTopPosts($_POST['weeks'], $_POST['sort']);
+          foreach($posts as $row) {
+            echo '<ul>';
+            echo '<li>';
+            echo '<a href="?viewpost&pid='.$row['pid'].'">'.$row['title'].'</a>';
+            echo '</li>';
+            echo '</ul>';
+        }
+      }
+      ?>
+
 
     </div>
     <h4>Top users</h4>

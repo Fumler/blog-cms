@@ -169,50 +169,58 @@ function getTopPosts($weeks, $sort) {
 
     if($weeks == "1") {
         if($sort == "comments") {
-            $sql = 'SELECT title, posts.pid FROM posts, comments WHERE  ';
+            $sql = 'SELECT comments.pid, count(*), posts.title FROM comments JOIN posts on comments.pid = posts.pid WHERE posts.created >= ( CURDATE() - INTERVAL 7 DAY ) GROUP BY comments.pid ORDER BY count(*) desc LIMIT 0,10';
 
 
         } else {
-            $sql = 'SELECT title, pid FROM posts WHERE created >= ( CURDATE() - INTERVAL 7 DAY ) ORDER BY created desc LIMIT 0,10';
+            $sql = 'SELECT title, pid FROM posts WHERE created >= ( CURDATE() - INTERVAL 7 DAY ) ORDER BY visits desc LIMIT 0,10';
 
         }
 
     } else if($weeks == "2") {
         if($sort == "comments") {
+            $sql = 'SELECT comments.pid, count(*), posts.title FROM comments JOIN posts on comments.pid = posts.pid WHERE posts.created >= ( CURDATE() - INTERVAL 14 DAY ) GROUP BY comments.pid ORDER BY count(*) desc LIMIT 0,10';
 
         } else {
-            $sql = 'SELECT title, pid FROM posts WHERE created >= ( CURDATE() - INTERVAL 14 DAY ) ORDER BY created desc LIMIT 0,10';
+            $sql = 'SELECT title, pid FROM posts WHERE created >= ( CURDATE() - INTERVAL 14 DAY ) ORDER BY visits desc LIMIT 0,10';
 
         }
 
     } else if($weeks == "3") {
         if($sort == "comments") {
+            $sql = 'SELECT comments.pid, count(*), posts.title FROM comments JOIN posts on comments.pid = posts.pid WHERE posts.created >= ( CURDATE() - INTERVAL 21 DAY ) GROUP BY comments.pid ORDER BY count(*) desc LIMIT 0,10';
 
         } else {
-            $sql = 'SELECT title, pid FROM posts WHERE created >= ( CURDATE() - INTERVAL 21 DAY ) ORDER BY created desc LIMIT 0,10';
+            $sql = 'SELECT title, pid FROM posts WHERE created >= ( CURDATE() - INTERVAL 21 DAY ) ORDER BY visits desc LIMIT 0,10';
 
         }
 
     } else if($weeks == "4") {
         if($sort == "comments") {
+            $sql = 'SELECT comments.pid, count(*), posts.title FROM comments JOIN posts on comments.pid = posts.pid WHERE posts.created >= ( CURDATE() - INTERVAL 30 DAY ) GROUP BY comments.pid ORDER BY count(*) desc LIMIT 0,10';
 
         } else {
-            $sql = 'SELECT title, pid FROM posts WHERE created >= ( CURDATE() - INTERVAL 30 DAY ) ORDER BY created desc LIMIT 0,10';
+            $sql = 'SELECT title, pid FROM posts WHERE created >= ( CURDATE() - INTERVAL 30 DAY ) ORDER BY visits desc LIMIT 0,10';
 
         }
 
     } else if($weeks == "all") {
         if($sort == "comments") {
+            $sql = 'SELECT comments.pid, count(*), posts.title FROM comments JOIN posts on comments.pid = posts.pid GROUP BY comments.pid ORDER BY count(*) desc LIMIT 0,10';
 
         } else {
-            $sql = 'SELECT title, pid FROM posts ORDER BY created desc LIMIT 0,10';
+            $sql = 'SELECT title, pid FROM posts ORDER BY visits desc LIMIT 0,10';
 
         }
 
     }
 
-
-
+    $sth = $db -> prepare($sql);
+    $sth -> bindParam(':pid', $pid);
+    $sth -> execute();
+    $result = $sth -> fetchAll();
+    $sth -> closeCursor();
+    return $result;
 }
 
 function getTopUsers($days, $sort) {

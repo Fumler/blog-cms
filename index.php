@@ -25,6 +25,12 @@ if(isset($_GET['logout'])) {
     header('Location: '.$_SERVER['PHP_SELF']);
 }
 
+// set top lists sorting
+if(!isset($_POST['weeks']) && !isset($_POST['sort'])) {
+    $_POST['weeks'] = "2";
+    $_POST['sort'] = "views";
+}
+
 // make admin
 if(isset($_GET['setAdmin'])) {
     makeAdmin($_GET['setAdmin']);

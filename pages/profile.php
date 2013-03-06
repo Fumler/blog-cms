@@ -154,7 +154,7 @@ foreach($posts as $row) { ?>
         <div class="span8">
           <div class="row">
             <div class="span8">
-              <h4><strong><a href="#"><?php echo $row['title'];?></a></strong></h4>
+              <h4><strong><a href="<?php echo '?id=viewpost&pid=' . $row["pid"];?>"><?php echo $row['title'];?></a></strong></h4>
             </div>
           </div>
           <div class="row">
