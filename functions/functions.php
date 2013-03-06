@@ -169,7 +169,7 @@ function getTopPosts($weeks, $sort) {
 
     if($weeks == "1") {
         if($sort == "comments") {
-            $sql = 'SELECT title, posts.pid FROM posts, comments WHERE  '
+            $sql = 'SELECT title, posts.pid FROM posts, comments WHERE  ';
 
 
         } else {
