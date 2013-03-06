@@ -20,8 +20,8 @@
     }
   }
 
-  if (isset($_POST['fname']) || isset($_POST['lname']) || isset($_POST['email']) || isset($_POST['address'])) {
-    $user->updateUser($uid, $_POST['fname'], $_POST['lname'], $_POST['email'], $_POST['address']);
+  if (isset($_POST['fname']) || isset($_POST['lname']) || isset($_POST['email']) || isset($_POST['address']) || isset($_POST['info'])) {
+    $user->updateUser($uid, $_POST['fname'], $_POST['lname'], $_POST['email'], $_POST['address'], $_POST['info']);
   }
 
 	$posts = getPosts($uid);
@@ -37,8 +37,9 @@
       <label>Email</label>
       <input name="email" type="text" value="<?php echo $userInfo['email']; ?>" class="input-xlarge">
       <label>Address</label>
-      <textarea name="address" value="<?php echo $userInfo['info']; ?>" rows="3" class="input-xlarge"><?php echo $userInfo['info']; ?>
-      </textarea>
+      <input name="address" type="text" value="<?php echo $userInfo['address']; ?>" class="input-xlarge">
+      <label>Info</label>
+      <input name="info" type="text" value="<?php echo $userInfo['info']; ?>" class="input-xlarge">
 
       <legend>Password</legend>
       <label>Old password</label>
