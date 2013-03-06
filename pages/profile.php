@@ -1,7 +1,3 @@
-<h1><?php
-	$user->getName();
-?></h2>
-
 <div class="row">
 	<div class="span8">
 		<h1>Profile</h1>

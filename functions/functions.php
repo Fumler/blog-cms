@@ -55,6 +55,18 @@ function getPosts($uid) // gets all posts from a specific user, sorted by date
     return $result;
 }
 
+function getPostById($pid) // gets a blogpost based on the unique post ID. 
+{
+    global $db;
+    $sql = 'SELECT * FROM posts WHERE pid=:pid';
+    $sth = $db -> prepare($sql);
+    $sth -> bindParam(':pid', $pid);
+    $sth -> execute();
+    $result = $sth -> fetch( PDO::FETCH_ASSOC );
+    $sth -> closeCursor();
+    return $result;
+}
+
 function makeAdmin($uid) {
     global $db;
     global $user;
