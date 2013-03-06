@@ -132,7 +132,7 @@ if($user->checkAdmin()) { ?>
     </div>
     <div id="pane5" class="tab-pane">
       <h4>Chat</h4>
-      <p>Future feature, admin chat</p>
+      <div class="fb-comments" data-href="http://basketak.net/blog-cms/index.php?id=admin" data-width="970" data-num-posts="20"></div>
     </div>
   </div><!-- /.tab-content -->
 </div><!-- /.tabbable -->

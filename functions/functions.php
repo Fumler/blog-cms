@@ -236,4 +236,16 @@ function getTopUsers($days, $sort) {
 
 }
 
+function getNumberOfComments($pid) {
+    global $db;
+    $sql = 'SELECT COALESCE(count(*), 0) as amount FROM comments, posts WHERE comments.pid = posts.pid AND comments.pid = :pid GROUP BY comments.pid';
+   // $sql = 'SELECT count(*) as derp FROM comments, posts WHERE comments.pid = posts.pid AND comments.pid = :pid GROUP BY comments.pid';
+    $sth = $db->prepare($sql);
+    $sth->bindParam(':pid', $pid);
+    $sth->execute();
+    $result = $sth->fetch(PDO::FETCH_ASSOC);
+    $sth->closeCursor();
+    return $result;
+}
+
 ?>
