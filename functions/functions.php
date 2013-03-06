@@ -34,7 +34,7 @@ function getDisapprovedPosts($uid) { // gets all disapproved posts by specific u
 
 function getAllReportedPosts() { // gets all disapproved posts
     global $db;
-    $sql = 'SELECT * FROM posts WHERE reports > "0"';
+    $sql = 'SELECT * FROM posts WHERE reports > "0" AND approved = "1"';
     $sth = $db->prepare($sql);
     $sth->execute();
     $result = $sth->fetchAll();

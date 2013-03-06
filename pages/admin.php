@@ -27,11 +27,46 @@ if($user->checkAdmin()) { ?>
   </ul>
   <div class="tab-content">
     <div id="pane1" class="tab-pane active">
-      <h4>Posts that needs your attention</h4>
-      <!-- Do stuff here -->
+      <?php
+        $posts = getAllReportedPosts();
+
+        foreach($posts as $post)
+        {
+          $tempUser = getUser($post['uid']);
+          ?>
+          <div class="row">
+            <div class="span4">
+              <h4><strong><a href="?id=profile&prid=<?php echo $tempUser['uid'];?>"><?php echo $tempUser['uname'];?></a></strong></h4>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="span1">
+              <a href="#" class="thumbnail">
+                <img src="<?php echo $tempUser['pic'];?>" alt="">
+              </a>
+            </div>
+            <div class="span6">
+              <p><h4><strong><a href="?id=profile&prid=<?php echo $tempUser['uid'];?>"><?php echo $tempUser['uname'];?></a></strong></h4></p>
+            </div>
+          </div>
+            </br>
+            <form action="index.php?id=admin&pid=<?php echo $post['pid'];?>" method="post">
+              <li style="list-style: none;">
+                <label class="control-label" for="delete"></label>
+                <input id="delete" name="delete" type="text"
+                placeholder="Type 'delete' to delete post" required autofocus>
+              </li>
+              <button type="submit" class="btn btn-primary">
+                Delete
+              </button>
+            </form>
+          <hr>
+          <?php
+        }
+      ?>
     </div>
     <div id="pane2" class="tab-pane">
-      <h4>Comments</h4>
       <?php
         $comments = getAllReportedComments();
 
@@ -39,7 +74,6 @@ if($user->checkAdmin()) { ?>
         {
           $tempUser = getUser($comment['uid']);
           ?>
-
           <div class="row">
             <div class="span4">
               <h4><strong><a href="#"><?php echo $tempUser['uname'];?></a></strong></h4>
