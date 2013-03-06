@@ -4,12 +4,14 @@
     $post = getPostById($pid);
 
     $userInfo = getUser($post['uid']);
-    
+
+<<<<<<< HEAD
     if(isset($_GET['pid'])) {
       updatePostViews($pid);
     }
 
-
+    if(count($post > 0)) // If a post exists with that ID.
+=======
   if(isset($_POST['newcomment']))
   {
     $content = $_POST['newcomment'];
@@ -20,7 +22,8 @@
 ?>
 
 <?php
-    if(count($post > 0)) // If a post exists with that ID.
+    if(count($post > 0)) // If a post exists with that ID. 
+>>>>>>> def0f8959792aa257eb6fe0797260693e4d31dc4
     {
 ?>
        <div class="row">

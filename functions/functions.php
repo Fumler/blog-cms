@@ -67,20 +67,57 @@ function getPostById($pid) // gets a blogpost based on the unique post ID.
     return $result;
 }
 
-function makeAdmin($uid) {
+function getCommentsByPostId($pid) // gets all comments on a certain blog post. 
+{
+    global $db;
+    $sql = 'SELECT * from comments WHERE approved=1 AND pid=:pid';
+    $sth = $db -> prepare($sql);
+    $sth -> bindParam(':pid', $pid);
+    $sth -> execute();
+    $result = $sth -> fetchAll();
+    $sth -> closeCursor();
+    return $result;
+}
+
+function deletePostById($pid)   // Removes a blog post (Used to delete own posts)
+{
+    global $db;
+    $sql = 'DELETE FROM posts WHERE pid=:pid';
+    $sth = $db -> prepare($sql);
+    $sth -> bindParam(':pid', $pid);
+    $sth -> execute();
+    $sth -> closeCursor();
+}
+
+function reportPostById($pid)  // Reports a pos (increments the counter). 
+{
+    global $db;
+    $sql = 'UPDATE posts SET reports=reports + 1 WHERE pid=:pid';
+    $sth = $db -> prepare($sql);
+    $sth -> bindParam(':pid', $pid);
+    $sth -> execute();
+    $sth -> closeCursor();
+}
+
+function makeAdmin($uid) 
+{
     global $db;
     global $user;
+    
     $db->beginTransaction();
     $db->query ('LOCK TABLES users WRITE');
     $sql = 'UPDATE users SET admin="1" WHERE uid=:uid';
     $sth = $db->prepare($sql);
     $sth->bindParam(':uid', $uid);
     $sth->execute();
-    if($sth->rowCount() == 0) {
+    
+    if($sth->rowCount() == 0) 
+    {
         $db->rollBack();
         $db->query('UNLOCK TABLES');
         $user->error = "<strong>Oh snap!</strong> He simply cannot be an admin! (He probably is one already?)";
     }
+    
     $result = $sth->fetchAll();
     $sth->closeCursor();
     $db->commit();
