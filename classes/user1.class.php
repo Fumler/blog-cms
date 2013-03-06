@@ -248,6 +248,24 @@ class User {
 
 	}
 
+	function updateUser($uid, $fname, $lname, $email, $address, $info) {
+		$sql = 'UPDATE users SET fname=:fname, lname=:lname, email=:email, address=:address, info=:info WHERE uid=:uid';
+		$sth = $this->db->prepare($sql);
+		$sth->bindParam(':uid', $uid);
+		$sth->bindParam(':fname', $fname);
+		$sth->bindParam(':lname', $lname);
+		$sth->bindParam(':email', $email);
+		$sth->bindParam(':address', $address);
+		$sth->bindParam(':info', $info);
+		$sth->execute();
+
+		if ($sth->rowCount() == 0) {
+			throw new Exception ('Query failed');
+		}
+
+		$sth->closeCursor();
+	}
+
 	function showUser($uid) {
 		$sql = 'SELECT * FROM users WHERE uid=:uid';
     	$sth = $this->db->prepare($sql);
