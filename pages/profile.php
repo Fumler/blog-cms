@@ -8,7 +8,7 @@
   $userInfo = getUser($uid);
 
   // Maximum filesize
-  define ("MAX_SIZE","300"); 
+  define ("MAX_SIZE","300");
 
   // returns the extension of a file.
   function getExtension($str) {
@@ -35,7 +35,7 @@
         <div class="alert alert-error">
           <button type="button" class="close" data-dismiss="alert">&times;</button>
           <?php echo "<p><strong>Invalid extension!</strong></p>" ?>
-        </div> 
+        </div>
         <?php
         $errors=1;
       }
@@ -47,7 +47,7 @@
           <div class="alert alert-error">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <?php echo "<p><strong>Filesize has been exceeded!</strong></p>" ?>
-          </div> 
+          </div>
           <?php
           $errors=1;
         }
@@ -61,7 +61,7 @@
           <div class="alert alert-error">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <?php echo "<p><strong>Copying was unsuccessful. Try again</strong></p>" ?>
-          </div> 
+          </div>
           <?php
           $errors=1;
         }
@@ -74,7 +74,7 @@
     <div class="alert alert-success">
       <button type="button" class="close" data-dismiss="alert">&times;</button>
       <?php echo "<p><strong>Upload successful!</strong></p>" ?>
-    </div> 
+    </div>
     <?php
 
     $user->updatePic($uid, $newname);
@@ -86,12 +86,12 @@
     if ((isset($_POST['newPwd']) && isset($_POST['newPwdA'])) && strlen($_POST['newPwd']) != 0) {
       if ($_POST['newPwd'] === $_POST['newPwdA']) {
         $user->changePassword($_POST['oldPwd'], $_POST['newPwd']);
-      } else { 
+      } else {
         ?>
           <div class="alert alert-error">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
           <?php echo "<p><strong>Your passwords do not match</strong></p>" ?>
-          </div> 
+          </div>
         <?php
       }
     }
@@ -108,8 +108,8 @@
   <form name="newad" method="post" enctype="multipart/form-data" action="">
     <table>
       <tr><td><input type="file" name="image"></td></tr>
-      <tr><td><input name="Submit" type="submit" value="Upload image"></td></tr>
-    </table>  
+      <tr><td><input class="btn btn-primary" name="Submit" type="submit" value="Upload image"></td></tr>
+    </table>
   </form>
 
   <form method="post" action=<?php echo "index.php?id=profile" . "&prid=$uid" ?>>
