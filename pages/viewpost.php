@@ -67,7 +67,6 @@
       {
          $tempUser = getUser($comment['uid']);
     ?>
-
           <div class="row">
             <div class="span4">
               <h4><strong><a href="#"><?php echo $tempUser['uname'];?></a></strong></h4>

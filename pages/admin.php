@@ -1,4 +1,21 @@
 <?php
+  if(isset($_POST['delete']))
+  {
+    $delete = $_POST['delete'];
+    if($delete == "delete")
+    {
+      deleteComment($_GET['cid']);
+      ?>
+      <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <?php echo "<p><strong>Comment have been deleted</strong></p>" ?>
+      </div>
+      <?php
+    }
+  }
+?>
+
+<?php
 if($user->checkAdmin()) { ?>
 <div class="tabbable">
   <ul class="nav nav-tabs">
@@ -16,7 +33,7 @@ if($user->checkAdmin()) { ?>
     <div id="pane2" class="tab-pane">
       <h4>Comments</h4>
       <?php
-        $comments = getAllDisapprovedComments();
+        $comments = getAllReportedComments();
 
         foreach($comments as $comment)
         {
@@ -39,6 +56,17 @@ if($user->checkAdmin()) { ?>
               <p><?php echo $comment['content'];?></p>
             </div>
           </div>
+            </br>
+            <form action="index.php?id=admin&cid=<?php echo $comment['cid'];?>" method="post">
+              <li style="list-style: none;">
+                <label class="control-label" for="delete"></label>
+                <input id="delete" name="delete" type="text"
+                placeholder="Type 'delete' to delete post" required autofocus>
+              </li>
+              <button type="submit" class="btn btn-primary">
+                Delete
+              </button>
+            </form>
           <hr>
           <?php
         }
