@@ -55,7 +55,7 @@ function getPosts($uid) // gets all posts from a specific user, sorted by date
     return $result;
 }
 
-function getPostById($pid) // gets a blogpost based on the unique post ID. 
+function getPostById($pid) // gets a blogpost based on the unique post ID.
 {
     global $db;
     $sql = 'SELECT * FROM posts WHERE pid=:pid';
@@ -87,15 +87,99 @@ function makeAdmin($uid) {
     $user->success = "<strong>Success!</strong> Your pal is now an admin!";
 }
 
-// function getBlog($uid) {
-//     global $db;
-//     $sql = 'SELECT * FROM users, posts WHERE users.uid=:uid AND users.uid = posts.uid';
-//     $sth = $db->prepare($sql);
-//     $sth->bindParam(':uid', $uid);
-//     $sth->execute();
-//     $result = $sth->fetchAll();
-//     $sth->closeCursor();
-//     return $result;
-// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function updatePostViews($pid) {
+    global $db;
+    $db->beginTransaction();
+    $db->query ('LOCK TABLES users WRITE');
+    $sql = 'UPDATE posts SET visits=visits+1 WHERE pid=:pid';
+    $sth = $db->prepare($sql);
+    $sth->bindParam(':pid', $pid);
+    $sth->execute();
+    if($sth->rowCount() == 0) {
+        $db->rollBack();
+        $db->query('UNLOCK TABLES');
+    }
+    $result = $sth->fetchAll();
+    $sth->closeCursor();
+    $db->commit();
+}
 
 ?>

@@ -4,9 +4,13 @@
 
     $userInfo = getUser($post['uid']);
 
-    if(count($post > 0)) // If a post exists with that ID. 
+    if(isset($_GET['pid'])) {
+      updatePostViews($pid);
+    }
+
+    if(count($post > 0)) // If a post exists with that ID.
     {
-?>     
+?>
        <div class="row">
             <div class="span8">
                <h1><strong><a href="#"><?php echo $post['title'];?></a></strong></h1>
@@ -40,6 +44,6 @@
     }
     else
     {
-      echo "We're sorry, but the post was not found!"; 
+      echo "We're sorry, but the post was not found!";
     }
 ?>
