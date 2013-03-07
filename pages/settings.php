@@ -2,6 +2,7 @@
 if(isset($_POST['radio']))
   {
     $_SESSION['style'] = $_POST['radio'];
+    setcookie('style', $_SESSION['style'], 60 * 60 * 24 * 7 * 2); // 2 weeks. 
     header('Location: '.'/blog-cms/index.php?=settings');
   }
 ?>

@@ -201,6 +201,10 @@ if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfi
                                     if(isset($_COOKIE['blogRemember']))
                                     {
                                         echo 'checked="checked"';
+                                        if(isset($_COOKIE['style']))
+                                        {
+                                            $_SESSION['style'] = $_COOKIE['style'];
+                                        }
                                     }
                                     else
                                     {
