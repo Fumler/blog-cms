@@ -68,16 +68,12 @@
 				</script>
 		<br>
 
-		<form method="post" action="newpost.php">
-			<?php 
-				$publickey = "6Lfc-N0SAAAAACuHV0gwOlPBpCLJWdJrJ9wpSuOa";
-				echo recaptcha_get_html($publickey);
-			?>
-			<button type="submit" name="captchaSubmit" class="btn btn-primary">
-				Post
-			</button>
-		</form>
-
-		
+		<?php 
+			$publickey = "6Lfc-N0SAAAAACuHV0gwOlPBpCLJWdJrJ9wpSuOa";
+			echo recaptcha_get_html($publickey);
+		?>
+		<button type="submit" name="captchaSubmit" class="btn btn-primary">
+			Post
+		</button>
 	</fieldset>
 </form>
