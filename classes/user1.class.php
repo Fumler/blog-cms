@@ -299,10 +299,8 @@ class User {
 		$sth->execute ();
 		if ($sth->rowCount()==0) {
 			return false;
-			echo "false";
 		} else {
 			return true;
-			echo "true";
 		}
 		$sth->closeCursor();
 	}
