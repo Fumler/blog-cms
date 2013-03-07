@@ -75,6 +75,10 @@
           <p></p>
           <p>
             <i class="icon-calendar"></i>Posted <?php echo $post['created'];?>
+            <?php if($post['updated'] != "0000-00-00 00:00:00")
+            {
+              ?>| <i class="icon-calendar"></i>Updated <?php echo $post['updated']; 
+            }?>
              | <i class="icon-user"></i>Written by <a href="<?php echo '?id=profile&prid='.$userInfo['uid']; ?>"> <?php echo $userInfo['uname'];?> </a>
              <?php if($owner)
              {
@@ -140,14 +144,22 @@
 
       global $user;
 
-      if($user -> loggedOn())
+      if($post['removed'] === 0)
       {
-          include('pages/comment.php');
+          if($user -> loggedOn())
+          {
+              include('pages/comment.php');
+          }
+          else
+          {
+            echo "Please log in to comment!";
+          }
       }
       else
       {
-        echo "Please log in to comment!";
+          echo "Comments have been disabled for this post!";
       }
+      
 
     }
     else
