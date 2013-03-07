@@ -13,6 +13,7 @@ $db = $indexDb;
 // includes
 require_once('classes/user1.class.php');
 include('functions/functions.php');
+require_once('functions/recaptchalib.php');
 
 // if id has a value, get it, if not set to home
 $id = isset($_GET['id']) ? $_GET['id'] : 'home';
