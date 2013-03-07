@@ -8,7 +8,7 @@
             <input style="margin-bottom: 15px;" type="password" name="regConfirmPwd" size="30" placeholder="Confirm password" pattern="(\S{4,10})" required/>
             <p class="robotic" id="pot">
             	<label>If you're human leave this blank:</label>
-            	<input name="robotest" type="text" id="robotest" class="robotest" />
+            	<input name="robotest" type="text" id="robotest" class="robotest"/>
         	</p>
             <input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; margin-bottom: 15px; font-size: 13px;" type="submit" value="Sign Up" />
             <input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; font-size: 13px;" type="submit" value="Sign up with Facebook" />

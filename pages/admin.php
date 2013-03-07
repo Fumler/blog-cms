@@ -27,8 +27,8 @@
     }
   }
 
- if(isset($_POST['reset'])) {
-  if(isset($_GEt['cid'])) {
+ if($_GET['reset'] == "comment") {
+  if(isset($_GET['cid'])) {
     resetReportsOnComment($_GET['cid']);
      ?>
         <div class="alert alert-success">
@@ -36,8 +36,10 @@
           <?php echo "<p><strong>Comment have been reset</strong></p>" ?>
         </div>
         <?php
-
-  } else if(isset($_POST['pid'])) {
+      }
+    }
+if($_GET['reset']) {
+   if(isset($_POST['pid'])) {
     resetReportsOnPost($_GET['pid']);
      ?>
         <div class="alert alert-success">
@@ -97,8 +99,7 @@ if($user->checkAdmin()) { ?>
               </button>
 
             </form>
-            <form method="post" action="index.php?id=admin&pid=<?php echo $post['pid'];?>">
-            <input name="reset" class="robotic" value="reset"></input>
+            <form method="post" action="index.php?id=admin&reset=post&pid=<?php echo $post['pid'];?>">
             <button type="submit" class="btn">Reset reports</button>
             </form>
           <hr>
@@ -116,7 +117,7 @@ if($user->checkAdmin()) { ?>
           ?>
           <div class="row">
             <div class="span4">
-              <h4><strong><a href="#"><?php echo $tempUser['uname'];?></a></strong></h4>
+              <h4><strong><a href="?id=profile&prid=<?php echo $tempUser['uid'];?>"><?php echo $tempUser['uname'];?></a></strong></h4>
             </div>
           </div>
 
@@ -141,8 +142,7 @@ if($user->checkAdmin()) { ?>
                 Delete
               </button>
             </form>
-            <form method="post" action="index.php?id=admin&cid=<?php echo $comment['cid'];?>">
-            <input name="reset" class="robotic" value="reset"></input>
+            <form method="post" action="index.php?id=admin&reset=comment&cid=<?php echo $comment['cid'];?>">
             <button type="submit" class="btn">Reset reports</button>
             </form>
           <hr>
