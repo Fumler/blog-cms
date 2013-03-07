@@ -5,25 +5,55 @@
 
     $userInfo = getUser($post['uid']);
 
-<<<<<<< HEAD
     if(isset($_GET['pid'])) {
       updatePostViews($pid);
     }
 
-    if(count($post > 0)) // If a post exists with that ID.
+<<<<<<< HEAD
 =======
-  if(isset($_POST['newcomment']))
+  if(isset($_GET['delcom']))
   {
-    $content = $_POST['newcomment'];
-    createComment($content);
-    $url = 'index.php?id=viewpost&pid=' .  $_GET['pid'];
-    header( "Location: $url");
+    $cid = $_GET['delcom'];
+    $admin = $_GET['admin'];
+
+    removeComment($cid, $admin);
+  }
+
+  if(isset($_GET['repcom']))
+  {
+    $cid = $_GET['repcom'];
+
+    reportCommentById($cid);
+  }
+
+>>>>>>> f4c3211c6f20db6d8d7d1a946a21dc486fcb1f25
+  if(isset($_POST['newcomment']))
+  { 
+    $privatekey = "6Lfc-N0SAAAAAPXPbstwKGqFcJj6gf0P2qK6xQHU";
+    $resp = recaptcha_check_answer ($privatekey,
+                                $_SERVER["REMOTE_ADDR"],
+                                $_POST["recaptcha_challenge_field"],
+                                $_POST["recaptcha_response_field"]);
+
+    if (!$resp->is_valid) { 
+      ?>
+        <div class="alert alert-error">
+          <button type="button" class="close" data-dismiss="success">&times;</button>
+        <?php echo "<p><strong>Captcha failed!</strong></p>" ?>
+        </div>
+      <?php
+    } else {
+      $content = $_POST['newcomment'];
+      createComment($content);
+      $url = 'index.php?id=viewpost&pid=' .  $_GET['pid'];
+      header( "Location: $url");
+    }
   }
 ?>
 
 <?php
-    if(count($post > 0)) // If a post exists with that ID. 
->>>>>>> def0f8959792aa257eb6fe0797260693e4d31dc4
+    $owner = $userInfo['uid'] === $user -> getID();
+    if(count($post > 0)) // If a post exists with that ID.
     {
 ?>
        <div class="row">
@@ -50,13 +80,13 @@
           <p>
             <i class="icon-calendar"></i>Posted <?php echo $post['created'];?>
              - <i class="icon-user"></i>Written by <?php echo $userInfo['uname'];?>
-             <?php if($userInfo['uid'] === $user -> getID())
+             <?php if($owner)
              {
                 echo "- <i class='icon-trash'></i><a href='?removepost=$pid'>Remove post</a>";
              }
              else
              {
-              echo "- <i class='icon-exclamation-sign'></i><a href='?reportpost=$pid'>Report post innapropriate</a>";
+              echo "- <i class='icon-exclamation-sign'></i><a href='?reportpost=$pid'>Report post as innapropriate</a>";
              }
              ?>
           </p>
@@ -68,14 +98,13 @@
           Comments
       </legend>
     <?php
-      
+
       $comments = getCommentsByPostId($pid);
 
       foreach($comments as $comment)
       {
          $tempUser = getUser($comment['uid']);
     ?>
-
           <div class="row">
             <div class="span4">
               <h4><strong><a href="#"><?php echo $tempUser['uname'];?></a></strong></h4>
@@ -91,13 +120,29 @@
             <div class="span6">
               <p><?php echo $comment['content'];?></p>
             </div>
+            <?php 
+                $cid = $comment['cid'];
+                $admin = $user -> checkAdmin();
+
+                if($comment['removed'] == 0)
+                {
+                    if($owner || $user -> checkAdmin())
+                    {
+                      echo "<div class='span2'><i class='icon-trash'></i><a href='?id=viewpost&pid=$pid&delcom=$cid&admin=$admin'>Remove comment</a></div>";
+                    }
+                    else
+                    {
+                      echo "<div class='span2'><i class='icon-exclamation-sign'></i><a href='?id=viewpost&pid=$pid&repcom=$cid'>Report comment as innapropriate</a></div>";
+                    }
+                }
+            ?>
           </div>
           <hr>
 <?php
       }
 
       global $user;
-      
+
       if($user -> loggedOn())
       {
           include('pages/comment.php');
