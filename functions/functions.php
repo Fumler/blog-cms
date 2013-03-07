@@ -297,4 +297,26 @@ function getNumberOfComments($pid) {
     return $result;
 }
 
+function setBanState($uid, $state) {
+    global $db;
+    $sql = 'UPDATE users SET banned=:state WHERE uid=:uid';
+    $sth = $db->prepare($sql);
+    $sth->bindParam(':uid', $uid);
+    $sth->bindParam(':state', $state);
+    $sth->execute();
+    $sth->closeCursor();
+}
+
+function getBanState($uid) {
+    global $db;
+    $sql = 'SELECT banned FROM users WHERE uid=:uid';
+    $sth = $db->prepare($sql);
+    $sth->bindParam(':uid', $uid);
+    $sth->execute();
+    $result = $sth->fetchAll();
+    $sth->closeCursor();
+
+    return $result;
+}
+
 ?>
