@@ -53,7 +53,7 @@ function deleteComment($commentId) { // set content of comment to "Deleted by ad
 
 function deletePost($postId) { // set content of post to "Deleted by admin"
     global $db;
-    $sql = 'UPDATE posts SET approved = "0", title = "<em>Deleted by admin</em>, content = "<strong>Deleted by admin</strong>" WHERE pid = :pid';
+    $sql = 'UPDATE posts SET approved = "0", title = "<em>Deleted by admin</em>", content = "<strong>Deleted by admin</strong>" WHERE pid = :pid';
     $sth = $db->prepare($sql);
     $sth->bindParam(':pid', $postId);
     $sth->execute();
