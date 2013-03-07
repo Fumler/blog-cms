@@ -75,7 +75,7 @@
           <p></p>
           <p>
             <i class="icon-calendar"></i>Posted <?php echo $post['created'];?>
-             | <i class="icon-user"></i>Written by <?php echo $userInfo['uname'];?>
+             | <i class="icon-user"></i>Written by <a href="<?php echo '?id=profile&prid='.$userInfo['uid']; ?>"> <?php echo $userInfo['uname'];?> </a>
              <?php if($owner)
              {
                 echo "| <i class='icon-pencil'></i><a href='?id=editpost&pid=$pid'>Edit post</a>";
