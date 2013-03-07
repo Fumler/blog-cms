@@ -23,13 +23,27 @@
 
     reportCommentById($cid);
   }
-
   if(isset($_POST['newcomment']))
-  {
-    $content = $_POST['newcomment'];
-    createComment($content);
-    $url = 'index.php?id=viewpost&pid=' .  $_GET['pid'];
-    header( "Location: $url");
+  { 
+    $privatekey = "6Lfc-N0SAAAAAPXPbstwKGqFcJj6gf0P2qK6xQHU";
+    $resp = recaptcha_check_answer ($privatekey,
+                                $_SERVER["REMOTE_ADDR"],
+                                $_POST["recaptcha_challenge_field"],
+                                $_POST["recaptcha_response_field"]);
+
+    if (!$resp->is_valid) { 
+      ?>
+        <div class="alert alert-error">
+          <button type="button" class="close" data-dismiss="success">&times;</button>
+        <?php echo "<p><strong>Captcha failed!</strong></p>" ?>
+        </div>
+      <?php
+    } else {
+      $content = $_POST['newcomment'];
+      createComment($content);
+      $url = 'index.php?id=viewpost&pid=' .  $_GET['pid'];
+      header( "Location: $url");
+    }
   }
 ?>
 
@@ -61,14 +75,15 @@
           <p></p>
           <p>
             <i class="icon-calendar"></i>Posted <?php echo $post['created'];?>
-             - <i class="icon-user"></i>Written by <?php echo $userInfo['uname'];?>
+             | <i class="icon-user"></i>Written by <a href="<?php echo '?id=profile&prid='.$userInfo['uid']; ?>"> <?php echo $userInfo['uname'];?> </a>
              <?php if($owner)
              {
-                echo "- <i class='icon-trash'></i><a href='?removepost=$pid'>Remove post</a>";
+                echo "| <i class='icon-pencil'></i><a href='?id=editpost&pid=$pid'>Edit post</a>";
+                echo " | <i class='icon-trash'></i><a href='?removepost=$pid'>Remove post</a>";
              }
              else
              {
-              echo "- <i class='icon-exclamation-sign'></i><a href='?reportpost=$pid'>Report post as innapropriate</a>";
+              echo " | <i class='icon-exclamation-sign'></i><a href='?reportpost=$pid'>Report post as innapropriate</a>";
              }
              ?>
           </p>
@@ -89,7 +104,7 @@
     ?>
           <div class="row">
             <div class="span4">
-              <h4><strong><a href="#"><?php echo $tempUser['uname'];?></a></strong></h4>
+              <h4><strong><a href="<?php echo '?id=profile&prid='.$tempUser['uid']; ?>"> <?php echo $tempUser['uname'];?> </a></strong></h4>
             </div>
           </div>
 
