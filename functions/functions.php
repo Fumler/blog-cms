@@ -274,14 +274,68 @@ function getTopPosts($weeks, $sort) {
     }
 
     $sth = $db -> prepare($sql);
-    $sth -> bindParam(':pid', $pid);
     $sth -> execute();
     $result = $sth -> fetchAll();
     $sth -> closeCursor();
     return $result;
 }
 
-function getTopUsers($days, $sort) {
+function getTopUsers($weeks, $sort) {
+global $db;
+
+    if($weeks == "1") {
+        if($sort == "comments") {
+            $sql = 'SELECT users.uid, count(*), uname FROM comments, posts, users WHERE comments.pid = posts.pid AND users.uid = posts.uid AND posts.created >= ( CURDATE() - INTERVAL 7 DAY ) GROUP BY users.uid ORDER BY count(*) desc LIMIT 0,10';
+
+
+        } else {
+            $sql = 'SELECT visits,title, users.uid, uname FROM posts JOIN users ON posts.uid = users.uid WHERE created >= ( CURDATE() - INTERVAL 7 DAY ) GROUP BY users.uid ORDER BY visits desc LIMIT 0,10';
+
+        }
+
+    } else if($weeks == "2") {
+        if($sort == "comments") {
+            $sql = 'SELECT users.uid, count(*), uname FROM comments, posts, users WHERE comments.pid = posts.pid AND users.uid = posts.uid AND posts.created >= ( CURDATE() - INTERVAL 14 DAY ) GROUP BY users.uid ORDER BY count(*) desc LIMIT 0,10';
+
+        } else {
+            $sql = 'SELECT visits,title, users.uid, uname FROM posts JOIN users ON posts.uid = users.uid WHERE created >= ( CURDATE() - INTERVAL 14 DAY ) GROUP BY users.uid ORDER BY visits desc LIMIT 0,10';
+
+        }
+
+    } else if($weeks == "3") {
+        if($sort == "comments") {
+            $sql = 'SELECT users.uid, count(*), uname FROM comments, posts, users WHERE comments.pid = posts.pid AND users.uid = posts.uid AND posts.created >= ( CURDATE() - INTERVAL 21 DAY ) GROUP BY users.uid ORDER BY count(*) desc LIMIT 0,10';
+
+        } else {
+            $sql = 'SELECT visits,title, users.uid, uname FROM posts JOIN users ON posts.uid = users.uid WHERE created >= ( CURDATE() - INTERVAL 21 DAY ) GROUP BY users.uid ORDER BY visits desc LIMIT 0,10';
+
+        }
+
+    } else if($weeks == "4") {
+        if($sort == "comments") {
+            $sql = 'SELECT users.uid, count(*), uname FROM comments, posts, users WHERE comments.pid = posts.pid AND users.uid = posts.uid AND posts.created >= ( CURDATE() - INTERVAL 30 DAY ) GROUP BY users.uid ORDER BY count(*) desc LIMIT 0,10';
+
+        } else {
+            $sql = 'SELECT visits,title, users.uid, uname FROM posts JOIN users ON posts.uid = users.uid WHERE created >= ( CURDATE() - INTERVAL 30 DAY ) GROUP BY users.uid ORDER BY visits desc LIMIT 0,10';
+
+        }
+
+    } else if($weeks == "all") {
+        if($sort == "comments") {
+            $sql = 'SELECT users.uid, count(*), uname FROM comments, posts, users WHERE comments.pid = posts.pid AND users.uid = posts.uid GROUP BY users.uid ORDER BY count(*) desc LIMIT 0,10';
+
+        } else {
+            $sql = 'SELECT visits,title, users.uid, uname FROM posts JOIN users ON posts.uid = users.uid GROUP BY users.uid ORDER BY visits desc LIMIT 0,10';
+
+        }
+
+    }
+
+    $sth = $db -> prepare($sql);
+    $sth -> execute();
+    $result = $sth -> fetchAll();
+    $sth -> closeCursor();
+    return $result;
 
 }
 
