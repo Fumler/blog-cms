@@ -11,7 +11,7 @@
 		                            $_POST["recaptcha_challenge_field"],
 		                            $_POST["recaptcha_response_field"]);
 
-		if (!$resp->is_valid) { 
+		if (!$resp->is_valid) {
 			?>
 		      <div class="alert alert-error">
 		        <button type="button" class="close" data-dismiss="success">&times;</button>
@@ -60,15 +60,15 @@
 
 <form action="index.php?id=newpost" method="post">
 	<fieldset>
-				<input id="title" style="width: 600px;" name="title" type="text"
+				<input id="title" style="width: 800px;" name="title" type="text"
 					placeholder="The title of your post" required autofocus>
-				<textarea rows="10" style="width: 600px;" id="newpost" name="newpost" placeholder="Enter text ..."></textarea>
+				<textarea rows="30" style="width: 800px;" id="newpost" name="newpost" placeholder="Enter text ..."></textarea>
 				<script type="text/javascript">
 					$('#newpost').wysihtml5();
 				</script>
 		<br>
 
-		<?php 
+		<?php
 			$publickey = "6Lfc-N0SAAAAACuHV0gwOlPBpCLJWdJrJ9wpSuOa";
 			echo recaptcha_get_html($publickey);
 		?>
