@@ -53,16 +53,16 @@ class User {
 
 				if ($row = $sth->fetch())  // Password found, set _SESSION value
 				{
-					$week = time() + (60 * 60 * 24 * 14); // 2 weeks
+					$hour = time() + (60 * 60); // 2 weeks
 					$this->uid = $row['uid'];
 					$_SESSION['uid'] = $this->uid;
 					$_SESSION['remember'] = $_POST['remember'];
 
 					if(isset($_POST['remember']))
 					{
-						setcookie('uname', $_POST['uname'], $week);
-						setcookie('pwd', $uid.$_POST['pwd'], $week);
-						setcookie('blogRemember', $_POST['uname'], $week * 26);
+						setcookie('uname', $_POST['uname'], $hour);
+						setcookie('pwd', $_POST['pwd'], $hour);
+						setcookie('blogRemember', $_POST['uname'], $hour * 24 * 7 * 52); // year.. 
 					}
 					else
 					{
