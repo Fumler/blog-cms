@@ -2,6 +2,31 @@
 <h1>Create a new blog post!</h1>
 
 <?php
+	$success = false;
+
+	if (isset($_POST['captchaSubmit'])) {
+		$privatekey = "6Lfc-N0SAAAAAPXPbstwKGqFcJj6gf0P2qK6xQHU";
+		$resp = recaptcha_check_answer ($privatekey,
+		                            $_SERVER["REMOTE_ADDR"],
+		                            $_POST["recaptcha_challenge_field"],
+		                            $_POST["recaptcha_response_field"]);
+
+		if (!$resp->is_valid) { 
+			?>
+		      <div class="alert alert-error">
+		        <button type="button" class="close" data-dismiss="success">&times;</button>
+		      <?php echo "<p><strong>Captcha failed!</strong></p>" ?>
+		      </div>
+	      	<?php
+
+	      	$success = false;
+		} else {
+	      	$success = true;
+		}
+	}
+?>
+
+<?php
 	function createPost($title, $content)
 	{
 		global $db, $user;
@@ -25,7 +50,7 @@
 ?>
 
 <?php
-	if(isset($_POST['title']) && isset($_POST['newpost']))
+	if(isset($_POST['title']) && isset($_POST['newpost']) && $success)
 	{
 		$title = $_POST['title'];
 		$content = $_POST['newpost'];
@@ -71,8 +96,17 @@
 				</textarea>
 			</li> -->
 		<br>
-		<button type="submit" class="btn btn-primary">
-			Post
-		</button>
+
+		<form method="post" action="newpost.php">
+			<?php 
+				$publickey = "6Lfc-N0SAAAAACuHV0gwOlPBpCLJWdJrJ9wpSuOa";
+				echo recaptcha_get_html($publickey);
+			?>
+			<button type="submit" name="captchaSubmit" class="btn btn-primary">
+				Post
+			</button>
+		</form>
+
+		
 	</fieldset>
 </form>
