@@ -1,3 +1,11 @@
+<?php
+if(isset($_POST['radio']))
+  {
+    $_SESSION['style'] = $_POST['radio'];
+    header('Location: '.'/blog-cms/index.php?=settings');
+  }
+?>
+
 <div class="tabbable">
   <ul class="nav nav-tabs">
     <li class="active"><a href="#pane1" data-toggle="tab">Website</a></li>
@@ -20,12 +28,6 @@
         <button class="btn btn-primary" type="submit" >  Save</button>
       </form>
     </div>
-    <?php echo "Radio: " . $_POST['radio'];
-    $_SESSION['style'] = $_POST['radio'];
-    header('Location: '.'/blog-cms/index.php?=settings');
-
-
-    ?>
     <div id="pane2" class="tab-pane">
     <h4>User settings</h4>
     </div>
