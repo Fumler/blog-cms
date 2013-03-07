@@ -105,6 +105,11 @@ if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfi
         <link rel="stylesheet" type="text/css" href="css/custom.css" media="all">
         <link rel="stylesheet" type="text/css" href="css/bootstrap-wysihtml5-0.0.2.css">
         <?php
+
+        if(isset($_COOKIE['style']))
+        {
+            $_SESSION['style'] = $_COOKIE['style'];
+        }
         if($_SESSION['style'] == 'option2') {
            echo  '<link rel="stylesheet" href="css/dark.min.css" media="screen">';
         } else if($_SESSION['style'] == 'option3') {

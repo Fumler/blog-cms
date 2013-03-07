@@ -47,9 +47,9 @@ class User {
 				// echo hash_hmac('sha512', $pwd, SITEKEY);
 				
 				$hash = hash_hmac('sha512', $pwd, SITEKEY);
-				//echo $hash;
+				echo $hash;
 
-				if(isset($_POST['remember']))
+				if(isset($_POST['remember']) && $_POST['uname'] == $_COOKIE['uname'])
 				{
 					if(isset($_COOKIE['pwd']))
 					{
