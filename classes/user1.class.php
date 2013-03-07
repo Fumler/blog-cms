@@ -234,6 +234,7 @@ class User {
     echo '<th>Approved Posts</th>';
     echo '<th>Disapproved posts</th>';
     echo '<th>Admin</th>';
+    echo '<th>Status</th>';
     echo '</tr>';
 
     $result = $this->db->query('SELECT * FROM users');
@@ -254,6 +255,11 @@ class User {
 				echo '<td>Yes</td>';
 			} else {
 				echo '<td>No <a href="?setAdmin='.$row['uid'].'">(Make admin)</a></td>';
+			}
+			if($row['banned'] == 0) {
+				echo '<td>No <a href="?banUser='.$row['uid'].'">(Ban)</a></td>';
+			} else {
+				echo '<td>Yes <a href="?unbanUser='.$row['uid'].'">(Unban)</a></td>';
 			}
 			echo "</tr>";
 

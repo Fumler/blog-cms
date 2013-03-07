@@ -44,7 +44,7 @@ function getAllReportedPosts() { // gets all disapproved posts
 
 function deleteComment($commentId) { // set content of comment to "Deleted by admin"
     global $db;
-    $sql = 'UPDATE comments SET approved = "0", content = CONCAT("<strong>Deleted by admin</strong> </br>", content) WHERE cid = :cid';
+    $sql = 'UPDATE comments SET approved = "0", content = "<strong>Deleted by admin</strong>" WHERE cid = :cid';
     $sth = $db->prepare($sql);
     $sth->bindParam(':cid', $commentId);
     $sth->execute();
@@ -53,7 +53,7 @@ function deleteComment($commentId) { // set content of comment to "Deleted by ad
 
 function deletePost($postId) { // set content of post to "Deleted by admin"
     global $db;
-    $sql = 'UPDATE posts SET approved = "0", content = CONCAT("<strong>Deleted by admin</strong> </br>", content) WHERE pid = :pid';
+    $sql = 'UPDATE posts SET approved = "0", content = "<strong>Deleted by admin</strong>" WHERE pid = :pid';
     $sth = $db->prepare($sql);
     $sth->bindParam(':pid', $postId);
     $sth->execute();
@@ -294,6 +294,28 @@ function getNumberOfComments($pid) {
     $sth->execute();
     $result = $sth->fetch(PDO::FETCH_ASSOC);
     $sth->closeCursor();
+    return $result;
+}
+
+function setBanState($uid, $state) {
+    global $db;
+    $sql = 'UPDATE users SET banned=:state WHERE uid=:uid';
+    $sth = $db->prepare($sql);
+    $sth->bindParam(':uid', $uid);
+    $sth->bindParam(':state', $state);
+    $sth->execute();
+    $sth->closeCursor();
+}
+
+function getBanState($uid) {
+    global $db;
+    $sql = 'SELECT banned FROM users WHERE uid=:uid';
+    $sth = $db->prepare($sql);
+    $sth->bindParam(':uid', $uid);
+    $sth->execute();
+    $result = $sth->fetchAll();
+    $sth->closeCursor();
+
     return $result;
 }
 
