@@ -99,6 +99,7 @@ if($user->checkAdmin()) { ?>
             </form>
             <form method="post" action="index.php?id=admin&pid=<?php echo $post['pid'];?>">
             <input name="reset" class="robotic" value="reset"></input>
+            <button type="submit" class="btn">Reset reports</button>
             </form>
           <hr>
           <?php
@@ -142,6 +143,7 @@ if($user->checkAdmin()) { ?>
             </form>
             <form method="post" action="index.php?id=admin&cid=<?php echo $comment['cid'];?>">
             <input name="reset" class="robotic" value="reset"></input>
+            <button type="submit" class="btn">Reset reports</button>
             </form>
           <hr>
           <?php
