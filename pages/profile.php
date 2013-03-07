@@ -151,8 +151,6 @@
     <?php } ?>
   </form>
 
-<?php
-if($user->checkAdmin()) { ?>
     <div class="row">
     <div class="span8">
         <legend><br />Posts</legend>
@@ -195,17 +193,4 @@ foreach($posts as $row) { ?>
           </div>
         </div>
       </div>
-
-
-
-<?php
-      // echo '<div class="media">';
-      // echo '<div class="media-body">';
-      // echo '<h4 class="media-heading">'.$row['title'].'</h4>';
-      // echo '<p>'.$row['content'].'</p>';
-      // echo '</div>';
-      // echo '</div>';
-    }
-}
-
-?>
+<?php } ?>
