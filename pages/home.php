@@ -112,6 +112,7 @@ if($user->loggedOn()) {
       <?php
       if(isset($_POST['weeks']) && isset($_POST['sort'])) {
           $posts = getTopPosts($_POST['weeks'], $_POST['sort']);
+
           foreach($posts as $row) {
             echo '<ul>';
             echo '<li>';
@@ -126,6 +127,19 @@ if($user->loggedOn()) {
     </div>
     <h4>Top users</h4>
     <div class="well" style="width: 300px;">
+      <?php
+       if(isset($_POST['weeks']) && isset($_POST['sort'])) {
+        $users = getTopUsers($_POST['weeks'], $_POST['sort']);
+        foreach($users as $row) {
+            echo '<ul>';
+            echo '<li>';
+            echo '<a href="?id=profile&prid='.$row['uid'].'">'.$row['uname'].'</a>';
+            echo '</li>';
+            echo '</ul>';
+        }
+     }
+     ?>
+
 
     </div>
   </div>
