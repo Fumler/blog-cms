@@ -9,6 +9,13 @@
       updatePostViews($pid);
     }
 
+  if(isset($_GET['delcom']))
+  {
+    $cid = $_GET['delcom'];
+    $admin = $_GET['admin'];
+
+    removeComment($cid, $admin);
+  }
 
   if(isset($_POST['newcomment']))
   {
@@ -20,6 +27,7 @@
 ?>
 
 <?php
+    $owner = $userInfo['uid'] === $user -> getID();
     if(count($post > 0)) // If a post exists with that ID.
     {
 ?>
@@ -47,7 +55,7 @@
           <p>
             <i class="icon-calendar"></i>Posted <?php echo $post['created'];?>
              - <i class="icon-user"></i>Written by <?php echo $userInfo['uname'];?>
-             <?php if($userInfo['uid'] === $user -> getID())
+             <?php if($owner)
              {
                 echo "- <i class='icon-trash'></i><a href='?removepost=$pid'>Remove post</a>";
              }
@@ -87,6 +95,22 @@
             <div class="span6">
               <p><?php echo $comment['content'];?></p>
             </div>
+            <?php 
+                $cid = $comment['cid'];
+                $admin = $user -> checkAdmin();
+
+                if($comment['removed'] == 0)
+                {
+                    if($owner || $user -> checkAdmin())
+                    {
+                      echo "<div class='span2'><i class='icon-trash'></i><a href='?id=viewpost&pid=$pid&delcom=$cid&admin=$admin'>Remove comment</a></div>";
+                    }
+                    else
+                    {
+                      echo "<div class='span2'><i class='icon-exclamation-sign'></i><a href='?id=viewpost&pid=$pid&repcom=$cid'>Report comment as innapropriate</a></div>";
+                    }
+                }
+            ?>
           </div>
           <hr>
 <?php

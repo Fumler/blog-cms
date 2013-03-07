@@ -137,6 +137,27 @@ function reportPostById($pid)  // Reports a pos (increments the counter).
     $sth -> closeCursor();
 }
 
+function removeComment($cid, $admin) // changes the content to "Deleted by blog author / administrator"
+{
+    global $db;
+    $sql = 'UPDATE comments SET content=:content, removed=1 WHERE cid=:cid';
+    $sth = $db -> prepare($sql);
+    $sth -> bindParam(':cid', $cid);
+
+    if($admin)
+    {
+        $content = '<em>Comment removed by administrator</em>';
+    }
+    else
+    {
+        $content = '<em>Comment removed by blog author</em>';
+    }
+
+    $sth -> bindParam(':content', $content);
+    $sth -> execute();
+    $sth -> closeCursor();
+}
+
 function makeAdmin($uid)
 {
     global $db;
