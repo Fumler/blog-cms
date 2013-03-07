@@ -1,6 +1,11 @@
 <?php error_reporting(E_ALL ^ E_NOTICE); ?>
 <?php
+
+session_name('blogLogin');
+session_set_cookie_params(2*7*24*60*60); // Set cookie duration to 2 weeks. 
+
 session_start();
+
 // vars
 try {
 $indexDb = new PDO('mysql:host=localhost;dbname=blog;charset=UTF8', $_SERVER['DBUSER'], $_SERVER['DBPASS']);
@@ -190,9 +195,18 @@ if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfi
                                 <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
                                 <form action="index.php" method="post" accept-charset="UTF-8">
                                     <legend>Please Sign In</legend>
-                                    <input style="margin-bottom: 15px;" type="text" name="uname" size="30" placeholder="Username" />
+                                    <input style="margin-bottom: 15px;" type="text" name="uname" size="30" value="<?php echo $_COOKIE['blogRemember']?>" placeholder="Username" />
                                     <input style="margin-bottom: 15px;" type="password" name="pwd" size="30" placeholder="Password" />
-                                    <input id="user_remember_me" style="float: left; margin-right: 10px;" type="checkbox" name="remember" value="1" />
+                                    <input id="user_remember_me" style="float: left; margin-right: 10px;" type="checkbox" name="remember" <?php 
+                                    if(isset($_COOKIE['blogRemember']))
+                                    {
+                                        echo 'checked="checked"';
+                                    }
+                                    else
+                                    {
+                                        echo '';
+                                    } ?>
+                                    />
                                     <label class="string optional" for="user_remember_me">Remember me</label>
 
                                     <input class="btn btn-primary" style="clear: left; width: 100%; height: 32px; margin-bottom: 15px; font-size: 13px;" type="submit" value="Sign In" />

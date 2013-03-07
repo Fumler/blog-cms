@@ -110,12 +110,21 @@
 
   <label>Picture</label>
   <img src=<?php echo $userInfo['pic']; ?> width="150">
-  <form name="newad" method="post" enctype="multipart/form-data" action="">
-    <table>
-      <tr><td><input type="file" name="image"></td></tr>
-      <tr><td><input class="btn btn-primary" name="Submit" type="submit" value="Upload image"></td></tr>
-    </table>
-  </form>
+
+  <?php if($edit) 
+  {
+    ?>
+    <form name="newad" method="post" enctype="multipart/form-data" action="">
+      <table>
+        <tr><td><input type="file" name="image"></td></tr>
+        <tr><td><input class="btn btn-primary" name="Submit" type="submit" value="Upload image"></td></tr>
+      </table>
+    </form>
+
+    <?php
+  }
+ ?>
+
   <!-- every form except username checks to see if they can be edited -->
   <form method="post" action=<?php echo "index.php?id=profile" . "&prid=$uid" ?>>
     <label>Username</label>

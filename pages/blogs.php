@@ -29,8 +29,7 @@
           <p><i class="icon-calendar"></i> Posted <?php echo $row['created'];?> | <i class="icon-user"></i> Written by <a href="<?php echo '?id=profile&prid='.$row['uid']; ?>"> <?php echo $pic['uname'];?> </a> | <i class="icon-comment"></i> <a href="<?php echo '?id=viewpost&pid='.$row['pid'];?>">Comments</a> (<?php if($numPosts['amount']) { echo $numPosts['amount']; } else { echo "0"; } ?>) | <i class="icon-thumbs-up"></i> <a href="<?php echo 'http://www.facebook.com/share.php?u=http://basketak.net/blog-cms/index.php?id=viewpost&pid='.$row['pid'];?>"> Like </a> | <i class="icon-plus"></i> <a href="<?php echo 'https://plusone.google.com/_/+1/confirm?hl=en&url=http://basketak.net/blog-cms/index.php?id=viewpost&pid='.$row['pid'];?>"> Google+ </a> </p>
         </div>
       </div>
-
-
+      
       <?php
     }
 
@@ -39,5 +38,4 @@
   {
     echo '<h4>There are no posts</h4>';
   }
-
 ?>
