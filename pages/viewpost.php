@@ -125,7 +125,7 @@
                 $cid = $comment['cid'];
                 $admin = $user -> checkAdmin();
 
-                if($comment['removed'] == 0)
+                if($comment['approved'] == 1)
                 {
                     if($owner || $user -> checkAdmin())
                     {
@@ -144,7 +144,7 @@
 
       global $user;
 
-      if($post['removed'] === 0)
+      if($post['approved'] == 1)
       {
           if($user -> loggedOn())
           {
@@ -159,8 +159,6 @@
       {
           echo "Comments have been disabled for this post!";
       }
-      
-
     }
     else
     {
