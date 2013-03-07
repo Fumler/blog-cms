@@ -35,17 +35,18 @@
 
 <form action="index.php?id=newpost" method="post">
 	<fieldset>
-		<legend>
-			Information
-		</legend>
-		<ul>
-			<li style="list-style: none;">
-				<label class="control-label" for="title"> Title </label>
-				<input id="title" name="title" type="text"
+				<input id="title" style="width: 600px;" name="title" type="text"
 					placeholder="The title of your post" required autofocus>
-			</li>
+				<textarea rows="10" style="width: 600px;" id="newpost" name="newpost" placeholder="Enter text ..."></textarea>
+				<script type="text/javascript">
+					$('#newpost').wysihtml5();
+				</script>
 
-			<li style="list-style: none;">
+
+
+
+
+			<!-- <li style="list-style: none;">
 				<label class="control-label" for="newpost"> Post </label>
 				<div class="btn-toolbar">
 				  <div class="btn-group">
@@ -68,10 +69,10 @@
 				</div>
 				<textarea id="newpost" name="newpost" rows="15" class="input-xlarge span8"  required>
 				</textarea>
-			</li>
-		</ul>
+			</li> -->
+		<br>
 		<button type="submit" class="btn btn-primary">
-			Send
+			Post
 		</button>
 	</fieldset>
 </form>

@@ -86,6 +86,7 @@ if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfi
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/bootstrap-responsive.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/custom.css" media="all">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-wysihtml5-0.0.2.css">
         <?php
         if($_SESSION['style'] == 'option2') {
            echo  '<link rel="stylesheet" href="css/dark.min.css" media="screen">';
@@ -98,6 +99,20 @@ if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfi
         ?>
     </head>
     <body>
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/dropdown.js"></script>
+        <script src="js/wysihtml5-0.3.0.js"></script>
+        <script src="js/bootstrap-wysihtml5-0.0.2.js"></script>
+        <script src="js/prettify.js"></script>
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/nb_NO/all.js#xfbml=1&appId=141152019365116";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
@@ -193,17 +208,7 @@ if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfi
         ?>
 
     </div>
-        <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/dropdown.js"></script>
-        <div id="fb-root"></div>
-        <script>(function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s); js.id = id;
-          js.src = "//connect.facebook.net/nb_NO/all.js#xfbml=1&appId=141152019365116";
-          fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
+
 
     </body>
 </html>
