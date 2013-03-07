@@ -45,8 +45,19 @@ class User {
 				// print_r(hash_algos());
 				// Output the hash value, usefull for debuging
 				// echo hash_hmac('sha512', $pwd, SITEKEY);
-																// Password stored as sha512 hash
-				$sth->bindParam (':pwd', hash_hmac('sha512', $pwd, SITEKEY));
+				
+				$hash = hash_hmac('sha512', $pwd, SITEKEY);
+				//echo $hash;
+
+				if(isset($_POST['remember']))
+				{
+					if(isset($_COOKIE['pwd']))
+					{
+						$hash = $_COOKIE['pwd'];
+					}
+				}												// Password stored as sha512 hash
+
+				$sth->bindParam (':pwd', $hash);
 				$sth->execute ();
 
 				$_POST['remember'] = (int)$_POST['remember'];
@@ -61,7 +72,7 @@ class User {
 					if(isset($_POST['remember']))
 					{
 						setcookie('uname', $_POST['uname'], $hour);
-						setcookie('pwd', $_POST['pwd'], $hour);
+						setcookie('pwd', $hash, $hour);
 						setcookie('blogRemember', $_POST['uname'], $hour * 24 * 7 * 52); // year.. 
 					}
 					else
