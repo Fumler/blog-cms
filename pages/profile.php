@@ -6,8 +6,9 @@
   $uid = $_GET['prid'];
   $posts = getPosts($uid);
   $userInfo = getUser($uid);
+  $edit = false;
 
-  // Maximum filesize
+  // Maximum filesize - 300kb
   define ("MAX_SIZE","300");
 
   // returns the extension of a file.
@@ -17,6 +18,10 @@
     $l = strlen($str) - $i;
     $ext = substr($str,$i+1,$l);
     return $ext;
+  }
+
+  if ($uid == $user->uid) {
+    $edit = true;
   }
 
   $errors = 0;
@@ -111,33 +116,41 @@
       <tr><td><input class="btn btn-primary" name="Submit" type="submit" value="Upload image"></td></tr>
     </table>
   </form>
-
+  <!-- every form except username checks to see if they can be edited -->
   <form method="post" action=<?php echo "index.php?id=profile" . "&prid=$uid" ?>>
     <label>Username</label>
     <input type="text" value="<?php echo $userInfo['uname']; ?>" class="input-xlarge" disabled>
     <label>First Name</label>
-    <input name="fname" type="text" value="<?php echo $userInfo['fname']; ?>" class="input-xlarge">
+    <input name="fname" type="text" value="<?php echo $userInfo['fname']; ?>" class="input-xlarge" <?php if (!$edit && !($user->checkAdmin())) { ?> disabled <?php } ?>>
     <label>Last Name</label>
-    <input name="lname" type="text" value="<?php echo $userInfo['lname']; ?>" class="input-xlarge">
+    <input name="lname" type="text" value="<?php echo $userInfo['lname']; ?>" class="input-xlarge" <?php if (!$edit && !($user->checkAdmin())) { ?> disabled <?php } ?>>
     <label>Email</label>
-    <input name="email" type="text" value="<?php echo $userInfo['email']; ?>" class="input-xlarge">
+    <input name="email" type="text" value="<?php echo $userInfo['email']; ?>" class="input-xlarge" <?php if (!$edit && !($user->checkAdmin())) { ?> disabled <?php } ?>>
     <label>Address</label>
-    <input name="address" type="text" value="<?php echo $userInfo['address']; ?>" class="input-xlarge">
+    <input name="address" type="text" value="<?php echo $userInfo['address']; ?>" class="input-xlarge" <?php if (!$edit && !($user->checkAdmin())) { ?> disabled <?php } ?>>
     <label>Info</label>
-    <input name="info" type="text" value="<?php echo $userInfo['info']; ?>" class="input-xlarge">
-
-    <legend>Password</legend>
-    <label>Old password</label>
-    <input name="oldPwd" type="password" class="input-xlarge">
-    <label>New password</label>
-    <input name="newPwd" type="password" class="input-xlarge">
-    <label>Again</label>
-    <input name="newPwdA" type="password" class="input-xlarge">
-
-    <div>
-      <button class="btn btn-primary" type="submit">Update</button>
-    </div>
+    <input name="info" type="text" value="<?php echo $userInfo['info']; ?>" class="input-xlarge" <?php if (!$edit && !($user->checkAdmin())) { ?> disabled <?php } ?>>
   </form>
+
+  <form method="post" action=<?php echo "index.php?id=profile" . "&prid=$uid" ?>>
+    <!-- Check to see if the user can change password-->
+    <?php if ($edit) { ?>
+      <legend>Password</legend>
+      <label>Old password</label>
+      <input name="oldPwd" type="password" class="input-xlarge">
+      <label>New password</label>
+      <input name="newPwd" type="password" class="input-xlarge">
+      <label>Again</label>
+      <input name="newPwdA" type="password" class="input-xlarge">
+    <?php } ?>
+
+    <?php if ($edit || $user->checkAdmin()) { ?>
+      <div>
+        <button class="btn btn-primary" type="submit">Update</button>
+      </div>
+    <?php } ?>
+  </form>
+
 <?php
 if($user->checkAdmin()) { ?>
     <div class="row">
