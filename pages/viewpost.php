@@ -140,14 +140,22 @@
 
       global $user;
 
-      if($user -> loggedOn())
+      if($post['removed'] === 0)
       {
-          include('pages/comment.php');
+          if($user -> loggedOn())
+          {
+              include('pages/comment.php');
+          }
+          else
+          {
+            echo "Please log in to comment!";
+          }
       }
       else
       {
-        echo "Please log in to comment!";
+          echo "Comments have been disabled for this post!";
       }
+      
 
     }
     else
