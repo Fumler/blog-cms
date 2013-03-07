@@ -25,13 +25,16 @@ class User {
 	function User ($db) {
 		global $_POST, $_SESSION;
 		$this->db = $db;										// Store a reference to the database handler
-		if (isset ($_POST['uname'])) {							// Try to log in
+		if (isset ($_POST['uname'])) 
+		{														// Try to log in
 			$this->uname = $_POST['uname'];
 			$sql = 'SELECT * FROM users WHERE uname=:uname';
 			$sth = $db->prepare ($sql);
 			$sth->bindParam (':uname', $this->uname);
 			$sth->execute ();
-			if ($row = $sth->fetch()) {							// User name found, we can check the password
+
+			if ($row = $sth->fetch()) // User name found, we can check the password
+			{							
 				$uid = $row['uid'];
 				$sth->closeCursor();
 				$sql = 'SELECT * FROM users WHERE uid=:uid AND pwd=:pwd';
@@ -45,9 +48,31 @@ class User {
 																// Password stored as sha512 hash
 				$sth->bindParam (':pwd', hash_hmac('sha512', $pwd, SITEKEY));
 				$sth->execute ();
-				if ($row = $sth->fetch()) {						// Password found, set _SESSION value
+
+				$_POST['remember'] = (int)$_POST['remember'];
+
+				if ($row = $sth->fetch())  // Password found, set _SESSION value
+				{
+					$week = time() + (60 * 60 * 24 * 14); // 2 weeks
 					$this->uid = $row['uid'];
 					$_SESSION['uid'] = $this->uid;
+					$_SESSION['remember'] = $_POST['remember'];
+
+					if(isset($_POST['remember']))
+					{
+						setcookie('uname', $_POST['uname'], $week);
+						setcookie('pwd', $uid.$_POST['pwd'], $week);
+						setcookie('blogRemember', $_POST['uname'], $week * 26);
+					}
+					else
+					{
+						if(isset($_COOKIE['blogRemember']))
+						{
+							$past = time() - 100;
+							setcookie(blogRemember, gone, $past);
+						}
+					}
+					
 					return;
 				}
 			}
