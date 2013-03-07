@@ -23,13 +23,27 @@
 
     reportCommentById($cid);
   }
-
   if(isset($_POST['newcomment']))
-  {
-    $content = $_POST['newcomment'];
-    createComment($content);
-    $url = 'index.php?id=viewpost&pid=' .  $_GET['pid'];
-    header( "Location: $url");
+  { 
+    $privatekey = "6Lfc-N0SAAAAAPXPbstwKGqFcJj6gf0P2qK6xQHU";
+    $resp = recaptcha_check_answer ($privatekey,
+                                $_SERVER["REMOTE_ADDR"],
+                                $_POST["recaptcha_challenge_field"],
+                                $_POST["recaptcha_response_field"]);
+
+    if (!$resp->is_valid) { 
+      ?>
+        <div class="alert alert-error">
+          <button type="button" class="close" data-dismiss="success">&times;</button>
+        <?php echo "<p><strong>Captcha failed!</strong></p>" ?>
+        </div>
+      <?php
+    } else {
+      $content = $_POST['newcomment'];
+      createComment($content);
+      $url = 'index.php?id=viewpost&pid=' .  $_GET['pid'];
+      header( "Location: $url");
+    }
   }
 ?>
 

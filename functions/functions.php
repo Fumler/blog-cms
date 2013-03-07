@@ -51,7 +51,7 @@ function deleteComment($commentId) { // set content of comment to "Deleted by ad
     $sth->closeCursor();
 }
 
-function deletePost($postId) { // set content of comment to "Deleted by admin"
+function deletePost($postId) { // set content of post to "Deleted by admin"
     global $db;
     $sql = 'UPDATE posts SET approved = "0", content = CONCAT("<strong>Deleted by admin</strong> </br>", content) WHERE pid = :pid';
     $sth = $db->prepare($sql);
@@ -68,6 +68,24 @@ function getAllReportedComments() { // gets all disapproved comments
     $result = $sth->fetchAll();
     $sth->closeCursor();
     return $result;
+}
+
+function resetReportsOnComment($commentId) {
+    global $db;
+    $sql = 'UPDATE comments SET reports = "0" WHERE cid = :cid';
+    $sth = $db->prepare($sql);
+    $sth->bindParam(':cid', $commentId);
+    $sth->execute();
+    $sth->closeCursor();
+}
+
+function resetReportsOnPost($postId) {
+    global $db;
+    $sql = 'UPDATE posts SET reports = "0" WHERE pid = :pid';
+    $sth = $db->prepare($sql);
+    $sth->bindParam(':pid', $postId);
+    $sth->execute();
+    $sth->closeCursor();
 }
 
 function getUser($uid) { // gets info about a specific user
