@@ -38,5 +38,4 @@
   {
     echo '<h4>There are no posts</h4>';
   }
-
 ?>
