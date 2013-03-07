@@ -75,14 +75,15 @@
           <p></p>
           <p>
             <i class="icon-calendar"></i>Posted <?php echo $post['created'];?>
-             - <i class="icon-user"></i>Written by <a href="<?php echo '?id=profile&prid='.$userInfo['uid']; ?>"> <?php echo $userInfo['uname'];?> </a>
+             | <i class="icon-user"></i>Written by <?php echo $userInfo['uname'];?>
              <?php if($owner)
              {
-                echo "- <i class='icon-trash'></i><a href='?removepost=$pid'>Remove post</a>";
+                echo "| <i class='icon-pencil'></i><a href='?id=editpost&pid=$pid'>Edit post</a>";
+                echo " | <i class='icon-trash'></i><a href='?removepost=$pid'>Remove post</a>";
              }
              else
              {
-              echo "- <i class='icon-exclamation-sign'></i><a href='?reportpost=$pid'>Report post as innapropriate</a>";
+              echo " | <i class='icon-exclamation-sign'></i><a href='?reportpost=$pid'>Report post as innapropriate</a>";
              }
              ?>
           </p>
