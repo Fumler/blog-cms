@@ -48,7 +48,7 @@
   }
 ?>
 
-</div>
+  </div>
   <div class="span3">
     <h4>Sort by</h4>
 
@@ -73,9 +73,12 @@
     <h4>Top posts</h4>
     <div class="well" style="width: 300px;">
       <?php
-      if(isset($_POST['weeks']) && isset($_POST['sort'])) {
+      if(isset($_POST['weeks']) && isset($_POST['sort'])) 
+      {
           $posts = getTopPosts($_POST['weeks'], $_POST['sort']);
-          foreach($posts as $row) {
+
+          foreach($posts as $row) 
+          {
             echo '<ul>';
             echo '<li>';
             echo '<a href="?id=viewpost&pid='.$row['pid'].'">'.$row['title'].'</a>';
@@ -89,6 +92,21 @@
     </div>
     <h4>Top users</h4>
     <div class="well" style="width: 300px;">
+      <?php
+       if(isset($_POST['weeks']) && isset($_POST['sort'])) 
+       {
+        $users = getTopUsers($_POST['weeks'], $_POST['sort']);
+        foreach($users as $row) 
+        {
+            echo '<ul>';
+            echo '<li>';
+            echo '<a href="?id=profile&prid='.$row['uid'].'">'.$row['uname'].'</a>';
+            echo '</li>';
+            echo '</ul>';
+        }
+     }
+     ?>
+
 
     </div>
   </div>
