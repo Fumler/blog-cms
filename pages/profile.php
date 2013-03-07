@@ -177,8 +177,6 @@ foreach($posts as $row) { ?>
               <p></p>
               <p>
                 <i class="icon-calendar"></i>Posted <?php echo $row['created'];?>
-                 - <i class="icon-comment"></i> <a href="#">Comments</a>
-                 - <i class="icon-thumbs-up"></i> <a href="#">Likes</a>
               </p>
             </div>
           </div>
