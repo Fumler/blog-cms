@@ -17,6 +17,13 @@
     removeComment($cid, $admin);
   }
 
+  if(isset($_GET['repcom']))
+  {
+    $cid = $_GET['repcom'];
+
+    reportCommentById($cid);
+  }
+
   if(isset($_POST['newcomment']))
   {
     $content = $_POST['newcomment'];
@@ -61,7 +68,7 @@
              }
              else
              {
-              echo "- <i class='icon-exclamation-sign'></i><a href='?reportpost=$pid'>Report post innapropriate</a>";
+              echo "- <i class='icon-exclamation-sign'></i><a href='?reportpost=$pid'>Report post as innapropriate</a>";
              }
              ?>
           </p>

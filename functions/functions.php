@@ -158,6 +158,16 @@ function removeComment($cid, $admin) // changes the content to "Deleted by blog 
     $sth -> closeCursor();
 }
 
+function reportCommentById($cid)    // Flags a comment as reported (incrementing the number of reports)
+{
+    global $db;
+    $sql = 'UPDATE comments SET reports=reports + 1 WHERE cid=:cid';
+    $sth = $db -> prepare($sql);
+    $sth -> bindParam(':cid', $cid);
+    $sth -> execute();
+    $sth -> closeCursor();
+}
+
 function makeAdmin($uid)
 {
     global $db;
