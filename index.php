@@ -37,6 +37,14 @@ if(isset($_GET['setAdmin'])) {
     makeAdmin($_GET['setAdmin']);
 }
 
+// ban/unban user
+if(isset($_GET['banUser'])) {
+    setBanState($_GET['banUser'], 1);
+}
+if(isset($_GET['unbanUser'])) {
+    setBanState($_GET['unbanUser'], 0);
+}
+
 // remove post
 if(isset($_GET['removepost']))
 {
@@ -75,6 +83,9 @@ if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfi
 }
 
 // checks user login
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -114,6 +125,24 @@ if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfi
           js.src = "//connect.facebook.net/nb_NO/all.js#xfbml=1&appId=141152019365116";
           fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script>
+
+        <?php
+        $ban = getBanState($user->getID());
+        if($ban[0]['banned'] == 1) {
+
+            ?>
+            <center>
+            <div class="page-header"><h3>You are banned.</h3> <p><a href="?logout">Log out</a></div>
+            <p class="lead"><h4>Appeal your ban</h4>
+            <div class="fb-comments" data-href="http://basketak.net/blog-cms/index.php?id=admin" data-width="970" data-num-posts="20"></div>
+            </div></p>
+        </center>
+            <?php
+        } else {
+
+        ?>
+
+
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
@@ -206,6 +235,7 @@ if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfi
             case "viewpost" : include('pages/viewpost.php');   break;
             default         : include('pages/home.php');       break;
         }
+
         ?>
 
     </div>
@@ -213,3 +243,4 @@ if(isset($_POST['regUser']) && isset($_POST['regPwd']) && isset($_POST['regConfi
 
     </body>
 </html>
+<?php } ?>

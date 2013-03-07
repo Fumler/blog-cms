@@ -26,6 +26,28 @@
       }
     }
   }
+
+ if(isset($_POST['reset'])) {
+  if(isset($_GEt['cid'])) {
+    resetReportsOnComment($_GET['cid']);
+     ?>
+        <div class="alert alert-success">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <?php echo "<p><strong>Comment have been reset</strong></p>" ?>
+        </div>
+        <?php
+
+  } else if(isset($_POST['pid'])) {
+    resetReportsOnPost($_GET['pid']);
+     ?>
+        <div class="alert alert-success">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <?php echo "<p><strong>Post have been reset</strong></p>" ?>
+        </div>
+        <?php
+
+  }
+}
 ?>
 
 <?php
@@ -36,7 +58,7 @@ if($user->checkAdmin()) { ?>
     <li><a href="#pane2" data-toggle="tab">Comments</a></li>
     <li><a href="#pane3" data-toggle="tab">Users</a></li>
     <li><a href="#pane4" data-toggle="tab">Settings</a></li>
-    <li><a href="#pane5" data-toggle="tab">Chat</a></li>
+    <li><a href="#pane5" data-toggle="tab">Ban appeals</a></li>
   </ul>
   <div class="tab-content">
     <div id="pane1" class="tab-pane active">
@@ -73,6 +95,10 @@ if($user->checkAdmin()) { ?>
               <button type="submit" class="btn btn-primary">
                 Delete
               </button>
+
+            </form>
+            <form method="post" action="index.php?id=admin&pid=<?php echo $post['pid'];?>">
+            <input name="reset" class="robotic" value="reset"></input>
             </form>
           <hr>
           <?php
@@ -114,6 +140,9 @@ if($user->checkAdmin()) { ?>
                 Delete
               </button>
             </form>
+            <form method="post" action="index.php?id=admin&cid=<?php echo $comment['cid'];?>">
+            <input name="reset" class="robotic" value="reset"></input>
+            </form>
           <hr>
           <?php
         }
@@ -131,7 +160,7 @@ if($user->checkAdmin()) { ?>
       <h4>Settings</h4>
     </div>
     <div id="pane5" class="tab-pane">
-      <h4>Chat</h4>
+      <h4>Ban appeals</h4>
       <div class="fb-comments" data-href="http://basketak.net/blog-cms/index.php?id=admin" data-width="970" data-num-posts="20"></div>
     </div>
   </div><!-- /.tab-content -->
